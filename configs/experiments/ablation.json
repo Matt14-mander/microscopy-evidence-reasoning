@@ -1,0 +1,11 @@
+{
+  "extends": "../base.json",
+  "output_dir": "outputs/ablation",
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "blur_r1", "kind": "blur", "radius": 1.0},
+    {"name": "blur_r3", "kind": "blur", "radius": 3.0},
+    {"name": "resolution_half", "kind": "resolution", "scale": 0.5},
+    {"name": "resolution_quarter", "kind": "resolution", "scale": 0.25}
+  ]
+}

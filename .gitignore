@@ -1,0 +1,24 @@
+# Environments, credentials, caches
+.venv/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+.cache/
+
+# Datasets, checkpoints and generated artifacts stay local.
+/data/*
+!/data/README.md
+/outputs/*
+!/outputs/README.md
+*.safetensors
+*.pt
+*.ckpt
+*.parquet

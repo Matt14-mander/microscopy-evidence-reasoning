@@ -1,0 +1,10 @@
+{
+  "seed": 42,
+  "data": {"path": "data/microvqa/samples.jsonl", "limit": null},
+  "model": {"backend": "mock", "name": "deterministic-smoke-test"},
+  "inference": {"temperature": 0, "max_new_tokens": 256},
+  "conditions": [{"name": "baseline", "kind": "baseline"}],
+  "evaluation": {"bootstrap_samples": 2000, "ece_bins": 10},
+  "output_dir": "outputs/baseline",
+  "cache_dir": "outputs/cache"
+}

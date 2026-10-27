@@ -1,0 +1,9 @@
+{
+  "model": {
+    "backend": "local",
+    "name": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "revision": "main",
+    "device_map": "auto",
+    "dtype": "auto"
+  }
+}

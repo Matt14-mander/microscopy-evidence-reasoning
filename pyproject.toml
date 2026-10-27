@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "microscopy-evidence-reasoning"
+version = "0.1.0"
+description = "Reproducible visual evidence experiments on MicroVQA"
+requires-python = ">=3.10"
+dependencies = ["Pillow>=10.4,<13", "numpy>=1.26,<3"]
+
+[project.optional-dependencies]
+data = ["datasets>=3,<5"]
+local = ["torch>=2.4,<3", "transformers==4.57.1", "accelerate>=1,<2"]
+plots = ["matplotlib>=3.8,<4"]
+
+[project.scripts]
+microvqa-run = "experiments.run:main"
+microvqa-prepare = "src.data.prepare:main"
+microvqa-report = "src.evaluation.report:main"
+
+[tool.setuptools.packages.find]
+include = ["src*", "experiments*"]

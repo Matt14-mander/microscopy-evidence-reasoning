@@ -1,0 +1,10 @@
+{
+  "extends": "../base.json",
+  "data": {"path": "data/microvqa/samples.annotated.jsonl"},
+  "output_dir": "outputs/evidence_masking",
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "evidence_mask", "kind": "evidence_mask", "fill": [0, 0, 0]},
+    {"name": "control_mask", "kind": "control_mask", "fill": [0, 0, 0]}
+  ]
+}

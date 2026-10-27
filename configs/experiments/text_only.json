@@ -1,0 +1,8 @@
+{
+  "extends": "../base.json",
+  "output_dir": "outputs/text_only",
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "text_only", "kind": "text_only"}
+  ]
+}

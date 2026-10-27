@@ -1,0 +1,13 @@
+{
+  "extends": "base.json",
+  "data": {"path": "data/demo/samples.jsonl"},
+  "output_dir": "outputs/demo",
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "text_only", "kind": "text_only"},
+    {"name": "evidence_mask", "kind": "evidence_mask", "fill": [0, 0, 0]},
+    {"name": "control_mask", "kind": "control_mask", "fill": [0, 0, 0]},
+    {"name": "blur", "kind": "blur", "radius": 2.0},
+    {"name": "resolution", "kind": "resolution", "scale": 0.5}
+  ]
+}
