@@ -1,0 +1,14 @@
+{
+  "extends": "../base.json",
+  "data": {
+    "path": "data/microvqa/samples.jsonl",
+    "split_manifest": "configs/splits/microvqa-v1.json",
+    "partition": "dev",
+    "limit": null
+  },
+  "output_dir": "outputs/development",
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "text_only", "kind": "text_only"}
+  ]
+}

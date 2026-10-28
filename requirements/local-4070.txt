@@ -1,0 +1,9 @@
+# Install torch/torchvision from the cu124 index first (see docs/P0_SETUP.md).
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+transformers==4.57.1
+accelerate==1.11.0
+bitsandbytes==0.48.2
+datasets==4.3.0
+huggingface-hub==0.36.2
+hf-xet==1.7.0

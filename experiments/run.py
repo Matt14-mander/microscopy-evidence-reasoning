@@ -45,7 +45,17 @@ def run_experiment(config, root=REPO, model=None):
     seed = config.get("seed", 0)
     data_path = _path(root, config["data"]["path"])
     image_root = config["data"].get("image_root")
-    samples = load_samples(data_path, _path(root, image_root) if image_root else None, config["data"].get("limit"))
+    samples = load_samples(data_path, _path(root, image_root) if image_root else None)
+    split_manifest = None
+    if "split_manifest" in config["data"]:
+        from src.data.splits import select_partition
+        split_manifest = read_json(_path(root, config["data"]["split_manifest"]))
+        samples = select_partition(samples, split_manifest, config["data"]["partition"], data_path)
+    limit = config["data"].get("limit")
+    if limit is not None:
+        if type(limit) is not int or limit <= 0:
+            raise ValueError("limit must be a positive integer")
+        samples = samples[:limit]
     output = _path(root, config["output_dir"])
     cache = _path(root, config["cache_dir"])
     if output.exists():
@@ -67,6 +77,8 @@ def run_experiment(config, root=REPO, model=None):
         "code_sha256": code_hash, "data_path": str(data_path), "data_sha256": file_digest(data_path),
         "images_sha256": image_hashes, "sample_ids": [s.sample_id for s in samples],
         "dataset_source": read_json(source_path) if source_path.exists() else None,
+        "split_id": split_manifest["split_id"] if split_manifest else None,
+        "partition": config["data"].get("partition"),
         "contains_synthetic_data": any(s.metadata.get("synthetic", False) for s in samples),
         "is_mock": config["model"]["backend"] == "mock", "cache_hits": 0, "cache_misses": 0,
     }

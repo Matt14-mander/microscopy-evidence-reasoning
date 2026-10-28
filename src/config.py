@@ -62,13 +62,28 @@ def validate_config(config):
             if key in config["model"] and type(config["model"][key]) is not bool:
                 raise ValueError(f"{key} must be boolean")
     if backend == "local":
-        model_allowed |= {"revision", "device_map", "dtype"}
+        model_allowed |= {"revision", "device_map", "dtype", "quantization", "min_pixels", "max_pixels",
+                          "attn_implementation", "local_files_only"}
+        model = config["model"]
+        if model.get("dtype", "auto") not in {"auto", "float16", "bfloat16", "float32"}:
+            raise ValueError("Unsupported local model dtype")
+        if model.get("quantization", "none") not in {"none", "nf4"}:
+            raise ValueError("quantization must be none or nf4")
+        if model.get("attn_implementation", "sdpa") not in {"sdpa", "eager", "flash_attention_2"}:
+            raise ValueError("Unsupported attention implementation")
+        for key in ("min_pixels", "max_pixels"):
+            if key in model and (type(model[key]) is not int or model[key] <= 0):
+                raise ValueError(f"{key} must be a positive integer")
+        if model.get("min_pixels", 0) > model.get("max_pixels", float("inf")):
+            raise ValueError("min_pixels cannot exceed max_pixels")
     if set(config["model"]) - model_allowed:
         raise ValueError("Unknown model parameters (store credentials only in environment variables)")
     if backend != "mock" and not config["model"].get("name"):
         raise ValueError("A model name/path is required")
-    if set(config["data"]) - {"path", "image_root", "limit"} or not config["data"].get("path"):
-        raise ValueError("data requires path and optionally image_root/limit")
+    if set(config["data"]) - {"path", "image_root", "limit", "split_manifest", "partition"} or not config["data"].get("path"):
+        raise ValueError("data requires path and optionally image_root/limit/split_manifest/partition")
+    if ("split_manifest" in config["data"]) != ("partition" in config["data"]):
+        raise ValueError("split_manifest and partition must be provided together")
     inference = config.get("inference", {})
     if set(inference) - {"temperature", "max_new_tokens"}:
         raise ValueError("Unsupported inference parameter")

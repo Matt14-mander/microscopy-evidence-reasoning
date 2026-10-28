@@ -1,0 +1,355 @@
+{
+  "date": "2026-10-28",
+  "scope": "P0-1/P0-2; development smoke, not benchmark scores",
+  "dataset": {
+    "dataset": "jmhb/microvqa",
+    "revision": "744d656b41f2d9f9bf8f229283271bd67ee782fd",
+    "requested_revision": "744d656b41f2d9f9bf8f229283271bd67ee782fd",
+    "split": "test",
+    "limit": null,
+    "count": 1042,
+    "conversion": "PIL RGB PNG; original image order"
+  },
+  "audit_summary": {
+    "n_rows": 1042,
+    "n_valid_samples": 1042,
+    "n_errors": 0,
+    "n_official_image_groups": 230,
+    "n_leakage_groups": 226,
+    "n_merged_components": 4,
+    "n_image_references": 1977,
+    "n_image_files": 1977,
+    "n_unique_rgb_images": 416,
+    "n_images_shared_between_questions": 400,
+    "n_missing_key_image": 0,
+    "task_counts": {
+      "experiment_proposal": 230,
+      "hypothesis_gen": 420,
+      "perception": 392
+    },
+    "images_per_question": {
+      "1": 603,
+      "2": 238,
+      "3": 73,
+      "4": 37,
+      "5": 25,
+      "6": 61,
+      "8": 5
+    },
+    "choices_per_question": {
+      "4": 467,
+      "5": 575
+    },
+    "answer_index_counts": {
+      "0": 218,
+      "1": 245,
+      "2": 239,
+      "3": 242,
+      "4": 98
+    },
+    "width_range": [
+      75,
+      4427
+    ],
+    "height_range": [
+      67,
+      3533
+    ],
+    "image_modes": {
+      "RGB": 1977
+    }
+  },
+  "split_id": "3f3e47178ddbc3f33b548b80711ebce9a6dc80ab8b6f6ba1ee906423436f7e98",
+  "partitions": {
+    "dev": {
+      "n_groups": 45,
+      "n_samples": 206,
+      "task_counts": {
+        "experiment_proposal": 46,
+        "hypothesis_gen": 80,
+        "perception": 80
+      },
+      "single_image": 120,
+      "multi_image": 86
+    },
+    "test": {
+      "n_groups": 181,
+      "n_samples": 836,
+      "task_counts": {
+        "experiment_proposal": 184,
+        "hypothesis_gen": 340,
+        "perception": 312
+      },
+      "single_image": 483,
+      "multi_image": 353
+    }
+  },
+  "split_validation": {
+    "sample_id_overlap": 0,
+    "group_id_overlap": 0,
+    "rgb_image_overlap": 0,
+    "all_samples_assigned": true
+  },
+  "model_config": {
+    "model": {
+      "backend": "local",
+      "name": "Qwen/Qwen2.5-VL-3B-Instruct",
+      "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+      "device_map": "cuda:0",
+      "dtype": "bfloat16",
+      "quantization": "nf4",
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "attn_implementation": "sdpa",
+      "local_files_only": true
+    },
+    "inference": {
+      "temperature": 0,
+      "max_new_tokens": 128
+    }
+  },
+  "model_load": {
+    "load_seconds": 21.871874099975685,
+    "model_name": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "resolved_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "torch_version": "2.6.0+cu124",
+    "cuda_runtime": "12.4",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "device_map": {
+      "": "cuda:0"
+    },
+    "dtype": "torch.bfloat16",
+    "quantization": "nf4",
+    "model_memory_bytes": 2347459920,
+    "processor": {
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "size": {
+        "shortest_edge": 3136,
+        "longest_edge": 12845056
+      },
+      "patch_size": 14,
+      "merge_size": 2
+    }
+  },
+  "smoke_summary": {
+    "n_cases": 12,
+    "n_successful": 12,
+    "n_valid_json": 12,
+    "n_abstentions": 0,
+    "peak_allocated_bytes": 3067469312
+  },
+  "latency_seconds": {
+    "min": 3.513766999996733,
+    "max": 9.767186599987326,
+    "median": 6.566029850000632,
+    "mean": 6.439740416664184,
+    "total": 77.2768849999702
+  },
+  "peak_reserved_bytes": 3244294144,
+  "sample_cases": [
+    {
+      "sample_id": "331",
+      "condition": "baseline",
+      "n_images": 1,
+      "seconds": 7.283682699984638,
+      "input_tokens": 491,
+      "image_grid_thw": [
+        [
+          1,
+          26,
+          38
+        ]
+      ],
+      "valid_json": true
+    },
+    {
+      "sample_id": "331",
+      "condition": "text_only",
+      "n_images": 0,
+      "seconds": 3.513766999996733,
+      "input_tokens": 242,
+      "image_grid_thw": [],
+      "valid_json": true
+    },
+    {
+      "sample_id": "346",
+      "condition": "baseline",
+      "n_images": 1,
+      "seconds": 3.7318934999930207,
+      "input_tokens": 517,
+      "image_grid_thw": [
+        [
+          1,
+          24,
+          38
+        ]
+      ],
+      "valid_json": true
+    },
+    {
+      "sample_id": "346",
+      "condition": "text_only",
+      "n_images": 0,
+      "seconds": 4.615221400017617,
+      "input_tokens": 287,
+      "image_grid_thw": [],
+      "valid_json": true
+    },
+    {
+      "sample_id": "831",
+      "condition": "baseline",
+      "n_images": 2,
+      "seconds": 7.060361999989254,
+      "input_tokens": 792,
+      "image_grid_thw": [
+        [
+          1,
+          32,
+          32
+        ],
+        [
+          1,
+          30,
+          32
+        ]
+      ],
+      "valid_json": true
+    },
+    {
+      "sample_id": "831",
+      "condition": "text_only",
+      "n_images": 0,
+      "seconds": 6.07169770001201,
+      "input_tokens": 292,
+      "image_grid_thw": [],
+      "valid_json": true
+    },
+    {
+      "sample_id": "548",
+      "condition": "baseline",
+      "n_images": 2,
+      "seconds": 9.767186599987326,
+      "input_tokens": 411,
+      "image_grid_thw": [
+        [
+          1,
+          16,
+          18
+        ],
+        [
+          1,
+          16,
+          18
+        ]
+      ],
+      "valid_json": true
+    },
+    {
+      "sample_id": "548",
+      "condition": "text_only",
+      "n_images": 0,
+      "seconds": 8.379109200002858,
+      "input_tokens": 263,
+      "image_grid_thw": [],
+      "valid_json": true
+    },
+    {
+      "sample_id": "427",
+      "condition": "baseline",
+      "n_images": 6,
+      "seconds": 8.112043300003279,
+      "input_tokens": 1751,
+      "image_grid_thw": [
+        [
+          1,
+          32,
+          32
+        ],
+        [
+          1,
+          32,
+          32
+        ],
+        [
+          1,
+          30,
+          32
+        ],
+        [
+          1,
+          32,
+          32
+        ],
+        [
+          1,
+          32,
+          30
+        ],
+        [
+          1,
+          32,
+          30
+        ]
+      ],
+      "valid_json": true
+    },
+    {
+      "sample_id": "427",
+      "condition": "text_only",
+      "n_images": 0,
+      "seconds": 5.9689327999949455,
+      "input_tokens": 251,
+      "image_grid_thw": [],
+      "valid_json": true
+    },
+    {
+      "sample_id": "156",
+      "condition": "baseline",
+      "n_images": 3,
+      "seconds": 7.181505499989726,
+      "input_tokens": 969,
+      "image_grid_thw": [
+        [
+          1,
+          32,
+          32
+        ],
+        [
+          1,
+          30,
+          32
+        ],
+        [
+          1,
+          30,
+          32
+        ]
+      ],
+      "valid_json": true
+    },
+    {
+      "sample_id": "156",
+      "condition": "text_only",
+      "n_images": 0,
+      "seconds": 5.591483299998799,
+      "input_tokens": 227,
+      "image_grid_thw": [],
+      "valid_json": true
+    }
+  ],
+  "checks": {
+    "all_smoke_ids_in_dev": true,
+    "no_test_inference": true,
+    "all_images_preserved": true,
+    "actual_grid_pixel_bounds_pass": true,
+    "text_only_image_grids_empty": true,
+    "source_image_hash_order_pass": true
+  },
+  "artifacts": {
+    "outputs/audit/microvqa-v1.json": "0463c6884f27344ecf696d51856f6c5190669687b222f6333e8b05feb7bf3ff1",
+    "configs/splits/microvqa-v1.json": "b26f9782f13f2d3c3cb8bbadb1b51057f33b2d34ea482dcc8758745b252b0232",
+    "outputs/smoke/qwen25vl3b_nf4_4070/manifest.json": "79367d841e6dfdf1112aa9c42a2bf85593482c57f36f53c01b9c442aaad7e583"
+  }
+}
