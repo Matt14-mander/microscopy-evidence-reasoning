@@ -1,0 +1,651 @@
+{
+  "scope": "P0-5/P0-6; locked development pilot, not held-out benchmark evaluation",
+  "status": "passed",
+  "selection": {
+    "schema_version": 1,
+    "partition": "dev",
+    "split_id": "3f3e47178ddbc3f33b548b80711ebce9a6dc80ab8b6f6ba1ee906423436f7e98",
+    "data_sha256": "79e0208819e1b6b527d3328d1650945215a4ec7f62e2fbc092ec92cdacde6875",
+    "seed": 42,
+    "algorithm": "largest-remainder task x single/multi quotas; reserve max-image-count sample; greedy group coverage; seeded tie-break",
+    "selection_uses_labels_or_predictions": false,
+    "stress_sample_id": "778",
+    "stratum_counts_dev": {
+      "experiment_proposal/multi": 19,
+      "experiment_proposal/single": 27,
+      "hypothesis_gen/multi": 33,
+      "hypothesis_gen/single": 47,
+      "perception/multi": 34,
+      "perception/single": 46
+    },
+    "stratum_quotas": {
+      "experiment_proposal/multi": 5,
+      "experiment_proposal/single": 7,
+      "hypothesis_gen/multi": 8,
+      "hypothesis_gen/single": 11,
+      "perception/multi": 8,
+      "perception/single": 11
+    },
+    "sample_ids": [
+      "1012",
+      "1032",
+      "129",
+      "137",
+      "139",
+      "149",
+      "156",
+      "207",
+      "212",
+      "223",
+      "226",
+      "243",
+      "331",
+      "332",
+      "346",
+      "365",
+      "389",
+      "4",
+      "429",
+      "432",
+      "475",
+      "488",
+      "489",
+      "495",
+      "510",
+      "548",
+      "561",
+      "600",
+      "637",
+      "642",
+      "644",
+      "649",
+      "651",
+      "667",
+      "708",
+      "718",
+      "726",
+      "741",
+      "749",
+      "769",
+      "778",
+      "831",
+      "850",
+      "872",
+      "883",
+      "908",
+      "943",
+      "957",
+      "97",
+      "987"
+    ],
+    "samples": [
+      {
+        "sample_id": "1012",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "dd1e978c2eb8b7fbbe992bb03fd74d24d131bb05ba1c1a278aef44f1e42a74c9"
+      },
+      {
+        "sample_id": "1032",
+        "task": "perception",
+        "n_images": 4,
+        "group_id": "272d308ebe01876f32cb5d4e9b2983288b9dd18a00cc8134063580773c708c96"
+      },
+      {
+        "sample_id": "129",
+        "task": "experiment_proposal",
+        "n_images": 4,
+        "group_id": "348d1043cfd86b24e3ee50668bed87c183f1b88c59f488ad7db004c84455740a"
+      },
+      {
+        "sample_id": "137",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "be6b32f545a62d68780eba811c64fc20d18f205c1881c6fa17900fb3b9794f4d"
+      },
+      {
+        "sample_id": "139",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "be6b32f545a62d68780eba811c64fc20d18f205c1881c6fa17900fb3b9794f4d"
+      },
+      {
+        "sample_id": "149",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "e7fa7b38589c3cdfdbf74514de97dc3972febca0662e87fc6aebaa5410d2e035"
+      },
+      {
+        "sample_id": "156",
+        "task": "perception",
+        "n_images": 3,
+        "group_id": "c1e60759f8369a1f32a183da14c6b2042e364a42a353965ad7f294374c063034"
+      },
+      {
+        "sample_id": "207",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "6c616d07457e3bdb8021e00ac970fdc3d467383f650bc01cc676c0258ae56c7c"
+      },
+      {
+        "sample_id": "212",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "6c616d07457e3bdb8021e00ac970fdc3d467383f650bc01cc676c0258ae56c7c"
+      },
+      {
+        "sample_id": "223",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "2a3e0d2d512cd6b08bfcbbe5216b9cb22a1250646cf82d4dc9f8229e39b51fc5"
+      },
+      {
+        "sample_id": "226",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "6277169526952942ae8fca2ce31c92acbd285c73f8b6aff65525d591669709af"
+      },
+      {
+        "sample_id": "243",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "adccc6e3962faec8781cb633966587434262d0bef58e020a756db6ad9d2e5b0a"
+      },
+      {
+        "sample_id": "331",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "f8ac21bf5b93d7882eedceeb78170c666fd3a8295aa944f153d2f8dcaaa6e5e9"
+      },
+      {
+        "sample_id": "332",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "f8ac21bf5b93d7882eedceeb78170c666fd3a8295aa944f153d2f8dcaaa6e5e9"
+      },
+      {
+        "sample_id": "346",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "a37592f00fe3ed227909376d237744a055ae27cb0cfd5b29d6c54b820b886bb0"
+      },
+      {
+        "sample_id": "365",
+        "task": "experiment_proposal",
+        "n_images": 2,
+        "group_id": "137f93ea9304cd1e1f113c13f113d27d7079ed720c29b8f151d3e1a0e2a714e2"
+      },
+      {
+        "sample_id": "389",
+        "task": "hypothesis_gen",
+        "n_images": 3,
+        "group_id": "65e0188bfbb9dba74093be1f51097f3accbab399d5ae2bc7421ad396e6ee7a13"
+      },
+      {
+        "sample_id": "4",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "fa4257501f3cb0bae6b51ac75d08c2d2cd6b22112b86308680c2be21cd9a6ef7"
+      },
+      {
+        "sample_id": "429",
+        "task": "hypothesis_gen",
+        "n_images": 6,
+        "group_id": "8b4273b12144596e0b5ea25314ac7951b388cc30cff5b6d1f5450d95bd5b176d"
+      },
+      {
+        "sample_id": "432",
+        "task": "hypothesis_gen",
+        "n_images": 3,
+        "group_id": "615cfc75ab2c39db2bbc56e8974b41ebb1bd7e55dea6e2adba5078fe5808e0f9"
+      },
+      {
+        "sample_id": "475",
+        "task": "perception",
+        "n_images": 4,
+        "group_id": "5381adcd6cbecc286e927a89f2e0f43e4324ad9274f9b915d41893cbc753760e"
+      },
+      {
+        "sample_id": "488",
+        "task": "experiment_proposal",
+        "n_images": 2,
+        "group_id": "344404d5ebb7e013bf5ccf7184bc39044510e551dfbe8e90680062c4c30800dc"
+      },
+      {
+        "sample_id": "489",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "630dfddb3e2ea646c8274e350c355a95502447806bf9dd09b7585e63d980a6d9"
+      },
+      {
+        "sample_id": "495",
+        "task": "hypothesis_gen",
+        "n_images": 3,
+        "group_id": "b3108f7f083dfc045e849233a9dab27a1d5ed1a88105430e0eb90a42b78122d4"
+      },
+      {
+        "sample_id": "510",
+        "task": "hypothesis_gen",
+        "n_images": 2,
+        "group_id": "974f1a695ade0b56a86a975100ea74dcbd08332edd8008047afa6ef399928444"
+      },
+      {
+        "sample_id": "548",
+        "task": "hypothesis_gen",
+        "n_images": 2,
+        "group_id": "662c6573cdd570ff740724ecfe2ac6ed2ccb087b0c23ac337eaaf70f4f13649c"
+      },
+      {
+        "sample_id": "561",
+        "task": "perception",
+        "n_images": 2,
+        "group_id": "d6c1837f8813d9c2e474958e3c1e953950a279dfe2f4e2fef0c6f0ae555221ee"
+      },
+      {
+        "sample_id": "600",
+        "task": "hypothesis_gen",
+        "n_images": 2,
+        "group_id": "b387e76abd266bb303dbd619f7e67cd4748da608376115065ec1e7a7f5effd49"
+      },
+      {
+        "sample_id": "637",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "87381c6156617e39117bbcaef17554da7685c3b15a67c8c0fb0505a019efb293"
+      },
+      {
+        "sample_id": "642",
+        "task": "experiment_proposal",
+        "n_images": 1,
+        "group_id": "87381c6156617e39117bbcaef17554da7685c3b15a67c8c0fb0505a019efb293"
+      },
+      {
+        "sample_id": "644",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "589598fa8d7bc184a1ec0eb0800479708b11e093db04c77091656d9daa02a67d"
+      },
+      {
+        "sample_id": "649",
+        "task": "perception",
+        "n_images": 2,
+        "group_id": "75e834c416a4aeb40264b4bb310326c1acf6741aa1af7e9f31074818181c856e"
+      },
+      {
+        "sample_id": "651",
+        "task": "perception",
+        "n_images": 2,
+        "group_id": "75e834c416a4aeb40264b4bb310326c1acf6741aa1af7e9f31074818181c856e"
+      },
+      {
+        "sample_id": "667",
+        "task": "experiment_proposal",
+        "n_images": 2,
+        "group_id": "1c49d1f543e98ef8525f0ae80a75a002c10658529605c9f2d2d4ced15955e3ad"
+      },
+      {
+        "sample_id": "708",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "05d4e9a2b334479ce12dbbb6de2e2b30dee415c4dddb203df7ff8c013f8570d4"
+      },
+      {
+        "sample_id": "718",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "d0827624089303c04ba2b49d7ca202606cf0c940b5ab06f768fbc10bcdf2b29c"
+      },
+      {
+        "sample_id": "726",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "a94d080e5ee4ffb8b8880544199584c894afab1b0729f6d029d69dd691eeb1cd"
+      },
+      {
+        "sample_id": "741",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "bc01f2832f6bf33f666043fdba019d86142013d333165aa44f24f1db623050da"
+      },
+      {
+        "sample_id": "749",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "c7295c44ab791dcf86ad808473207af9c75a0407124619d7cd1aa4c8d5e0a37e"
+      },
+      {
+        "sample_id": "769",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "9e6d80446225dd1f94e996cbf4afdc157fd9ac03cbe37d5d6869a64fe7994bec"
+      },
+      {
+        "sample_id": "778",
+        "task": "perception",
+        "n_images": 6,
+        "group_id": "76f839ad3b562f36f42f2a372d75aac47cdca9cd0915412bb51d1f001f19cd5b"
+      },
+      {
+        "sample_id": "831",
+        "task": "hypothesis_gen",
+        "n_images": 2,
+        "group_id": "df59bfa84f877b42b2b0d28c62fcdcf9cae7f080e1ffc2391d18b9f7921a6cd0"
+      },
+      {
+        "sample_id": "850",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "5e935469b5450a7191a662d566eaf599f36ea77c52096be26619e94143987674"
+      },
+      {
+        "sample_id": "872",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "2da16280dc3fa05aa49e9fd421866b9a0c02aedff4eb0bee2da850970e8e57d5"
+      },
+      {
+        "sample_id": "883",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "fabfd4ab0be8a40c4380f8edc69b75cfa6bfd5ff7aa8efdf361002aa237aa511"
+      },
+      {
+        "sample_id": "908",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "2e12b402cda79b898d8ec8012d5ef20e9db2eb7e8b59d0442486059421cf1e95"
+      },
+      {
+        "sample_id": "943",
+        "task": "experiment_proposal",
+        "n_images": 3,
+        "group_id": "1394139bb864a689f9a59831ea702b8025402cd508fcfada0050666f851e4cfa"
+      },
+      {
+        "sample_id": "957",
+        "task": "perception",
+        "n_images": 1,
+        "group_id": "62e8699d06386a3cad257cd235c137e983ec8960498669a1274f4cff89dc2cdd"
+      },
+      {
+        "sample_id": "97",
+        "task": "hypothesis_gen",
+        "n_images": 1,
+        "group_id": "dee143302e1e96d6a35d7f42794552d2d28d9b2e058346da6c6324011b950385"
+      },
+      {
+        "sample_id": "987",
+        "task": "perception",
+        "n_images": 2,
+        "group_id": "26c529cc91acb0f40e2f99b56eaf109290dc5d0c5d8a85511693cf1e3bf00143"
+      }
+    ],
+    "summary": {
+      "n_samples": 50,
+      "n_groups": 45,
+      "task_counts": {
+        "experiment_proposal": 12,
+        "hypothesis_gen": 19,
+        "perception": 19
+      },
+      "single_image": 29,
+      "multi_image": 21,
+      "image_references": 90
+    },
+    "selection_id": "4f7fda19e599de3942b23c225d5d9ac38be8438bb3ee8a66ce489c49d01cf71f"
+  },
+  "config": {
+    "protocol": {
+      "name": "forced_choice",
+      "version": "1.0"
+    },
+    "seed": 42,
+    "data": {
+      "path": "data/microvqa/samples.jsonl",
+      "limit": null,
+      "split_manifest": "configs/splits/microvqa-v1.json",
+      "partition": "dev",
+      "sample_manifest": "configs/samples/pilot50-v1.json"
+    },
+    "model": {
+      "backend": "local",
+      "name": "Qwen/Qwen2.5-VL-3B-Instruct",
+      "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+      "device_map": "cuda:0",
+      "dtype": "bfloat16",
+      "quantization": "nf4",
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "processor": {
+        "class": "Qwen2_5_VLProcessor",
+        "image_processor_class": "Qwen2VLImageProcessorFast",
+        "use_fast": true,
+        "parameters": {
+          "do_resize": true,
+          "resample": 3,
+          "do_rescale": true,
+          "rescale_factor": 0.00392156862745098,
+          "do_normalize": true,
+          "image_mean": [
+            0.48145466,
+            0.4578275,
+            0.40821073
+          ],
+          "image_std": [
+            0.26862954,
+            0.26130258,
+            0.27577711
+          ],
+          "do_convert_rgb": true,
+          "patch_size": 14,
+          "temporal_patch_size": 2,
+          "merge_size": 2,
+          "disable_grouping": true
+        }
+      },
+      "attn_implementation": "sdpa",
+      "local_files_only": true
+    },
+    "inference": {
+      "temperature": 0,
+      "max_new_tokens": 128
+    },
+    "conditions": [
+      {
+        "name": "baseline",
+        "kind": "baseline"
+      },
+      {
+        "name": "text_only",
+        "kind": "text_only"
+      },
+      {
+        "name": "blur",
+        "kind": "blur",
+        "radius_fraction": 0.02
+      },
+      {
+        "name": "resolution",
+        "kind": "resolution",
+        "scale": 0.25
+      }
+    ],
+    "evaluation": {
+      "bootstrap_samples": 2000,
+      "ece_bins": 10
+    },
+    "output_dir": "outputs/pilot50-v1/forced_choice",
+    "cache_dir": "outputs/cache/pilot50-v1",
+    "study_preprocessing": {
+      "kind": "qwen_grid_rgb_v1",
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "factor": 28,
+      "resample": "bicubic"
+    },
+    "input_audit": "outputs/input-audit/pilot50-v1/audit.json"
+  },
+  "protocol": {
+    "name": "forced_choice",
+    "version": "1.0",
+    "protocol_id": "forced_choice@1.0",
+    "parser_version": "strict-json-1.0",
+    "template_sha256": "fa4beab38a63ab013c966e072ed79ae8b47aeb50ed38e275a0494b39a9c9285a"
+  },
+  "model_load": {
+    "load_seconds": 35.04410920000373,
+    "model_name": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "resolved_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "torch_version": "2.6.0+cu124",
+    "cuda_runtime": "12.4",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "device_map": {
+      "": "cuda:0"
+    },
+    "dtype": "torch.bfloat16",
+    "quantization": "nf4",
+    "model_memory_bytes": 2347459920,
+    "processor": {
+      "class": "Qwen2_5_VLProcessor",
+      "image_processor_class": "Qwen2VLImageProcessorFast",
+      "tokenizer_class": "Qwen2TokenizerFast",
+      "chat_template_sha256": "4df95d05455c2a6f762616492bba63d0f9bef904ef47daabad35f5715d6d2e4e",
+      "parameters": {
+        "disable_grouping": true,
+        "do_convert_rgb": true,
+        "do_normalize": true,
+        "do_rescale": true,
+        "do_resize": true,
+        "image_mean": [
+          0.48145466,
+          0.4578275,
+          0.40821073
+        ],
+        "image_std": [
+          0.26862954,
+          0.26130258,
+          0.27577711
+        ],
+        "merge_size": 2,
+        "patch_size": 14,
+        "resample": 3,
+        "rescale_factor": 0.00392156862745098,
+        "temporal_patch_size": 2
+      },
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "size": {
+        "shortest_edge": 50176,
+        "longest_edge": 200704
+      },
+      "patch_size": 14,
+      "merge_size": 2,
+      "versions": {
+        "transformers": "4.57.1",
+        "torch": "2.6.0+cu124",
+        "torchvision": "0.21.0+cu124",
+        "Pillow": "12.3.0"
+      },
+      "image_order": "request order, no truncation",
+      "image_device": "cpu",
+      "text_options": {
+        "padding": false,
+        "truncation": false
+      },
+      "frozen": true,
+      "fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e"
+    }
+  },
+  "started_at": "2026-10-29T14:58:29.590266+00:00",
+  "finished_at": "2026-10-29T15:23:25.517653+00:00",
+  "audit_summary": {
+    "n_questions": 50,
+    "n_conditions": 4,
+    "n_images": 90,
+    "n_pairs": 200,
+    "n_degradation_checks": 180,
+    "no_further_resizing": true,
+    "processor_rgb_reconstruction_exact_u8": true
+  },
+  "n_predictions": 200,
+  "cache": {
+    "cache_hits": 0,
+    "cache_misses": 200
+  },
+  "by_condition": {
+    "baseline": {
+      "n": 50,
+      "n_valid": 50,
+      "n_abstentions": 0,
+      "median_seconds": 6.602227499999572
+    },
+    "blur": {
+      "n": 50,
+      "n_valid": 50,
+      "n_abstentions": 0,
+      "median_seconds": 6.602431350002007
+    },
+    "resolution": {
+      "n": 50,
+      "n_valid": 50,
+      "n_abstentions": 0,
+      "median_seconds": 6.469415149997076
+    },
+    "text_only": {
+      "n": 50,
+      "n_valid": 50,
+      "n_abstentions": 0,
+      "median_seconds": 6.125565399997868
+    }
+  },
+  "peak_allocated_bytes": 3071100416,
+  "peak_reserved_bytes": 3244294144,
+  "hit_token_limit": 0,
+  "degradation_diagnostics": {
+    "blur": {
+      "n_changed": 90,
+      "rgb_mae_min": 0.00028166012998027165,
+      "rgb_mae_median": 0.04821179538795084,
+      "gradient_ratio_median": 0.25251419922593255
+    },
+    "resolution": {
+      "n_changed": 90,
+      "rgb_mae_min": 0.00025324401337530484,
+      "rgb_mae_median": 0.02479206205666057,
+      "gradient_ratio_median": 0.5758274619015455
+    }
+  },
+  "low_global_change_diagnostics": [
+    {
+      "sample_id": "778",
+      "image_index": 3,
+      "condition": "blur",
+      "changed": true,
+      "rgb_mae_0_1": 0.00028166012998027165,
+      "gradient_ratio": 0.2922655797948724
+    },
+    {
+      "sample_id": "778",
+      "image_index": 3,
+      "condition": "resolution",
+      "changed": true,
+      "rgb_mae_0_1": 0.00025324401337530484,
+      "gradient_ratio": 0.582011040261269
+    }
+  ],
+  "checks": {
+    "dev_only": true,
+    "complete_50_by_four_pairing": true,
+    "every_runtime_tensor_matches_audit": true,
+    "no_post_intervention_resize": true,
+    "source_and_group_lock_preserved": true
+  },
+  "artifacts": {
+    "outputs\\pilot50-v1\\forced_choice\\manifest.json": "35751a29b48b9dc0658ce9e1fb2f10149ed3a517a9fed816e10a1201ef297b80",
+    "outputs\\pilot50-v1\\forced_choice\\predictions.jsonl": "dca82491b294ee3606c040e64249221582a0a0c280ffc30196a65ee1db250fcc",
+    "outputs\\input-audit\\pilot50-v1\\audit.json": "d2c5d52691085382defe5562e8c9ae87dfb545081918c334dc8e7644f59d094e",
+    "configs\\samples\\pilot50-v1.json": "98cbcc26a94ee6aad0152f1282de1874d3418b451127c98aa4a123e9a98a20ee",
+    "configs\\splits\\microvqa-v1.json": "b26f9782f13f2d3c3cb8bbadb1b51057f33b2d34ea482dcc8758745b252b0232"
+  }
+}

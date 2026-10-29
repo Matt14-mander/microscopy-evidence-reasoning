@@ -19,6 +19,7 @@ from src.models.parsing import parse_prediction
 from src.models.protocols import DEFAULT_PROTOCOL, resolve_protocol, text_sha256
 from src.models.cache import request_identity, read_prediction_cache, write_prediction_cache
 from src.perturbations.transforms import apply_condition
+from src.perturbations.study import prepare_study_images
 from src.utils import digest, file_digest, image_digest, read_json, stable_seed, write_json
 
 
@@ -55,6 +56,17 @@ def run_experiment(config, root=REPO, model=None):
         from src.data.splits import select_partition
         split_manifest = read_json(_path(root, config["data"]["split_manifest"]))
         samples = select_partition(samples, split_manifest, config["data"]["partition"], data_path)
+    selection = None
+    if "sample_manifest" in config["data"]:
+        from src.data.pilot import apply_pilot
+        selection = read_json(_path(root, config["data"]["sample_manifest"]))
+        samples = apply_pilot(samples, selection, split_manifest)
+    input_audit = None
+    if "input_audit" in config:
+        from src.evaluation.input_audit import audit_identity
+        input_audit = read_json(_path(root, config["input_audit"]))
+        if input_audit["status"] != "passed" or input_audit["identity"] != audit_identity(config, selection):
+            raise ValueError("Input audit does not match this pilot configuration")
     limit = config["data"].get("limit")
     if limit is not None:
         if type(limit) is not int or limit <= 0:
@@ -67,7 +79,7 @@ def run_experiment(config, root=REPO, model=None):
     conditions = config["conditions"]
     # Validate every intervention before incurring any API cost.
     for sample in samples:
-        images = sample.load_images()
+        images, _ = prepare_study_images(sample.load_images(), config.get("study_preprocessing"))
         for condition in conditions:
             apply_condition(images, sample.regions, condition, stable_seed(seed, sample.sample_id))
     code_hash = _code_fingerprint()
@@ -84,6 +96,8 @@ def run_experiment(config, root=REPO, model=None):
         "split_id": split_manifest["split_id"] if split_manifest else None,
         "partition": config["data"].get("partition"),
         "protocol": protocol,
+        "selection_id": selection["selection_id"] if selection else None,
+        "input_audit_sha256": file_digest(_path(root, config["input_audit"])) if input_audit else None,
         "contains_synthetic_data": any(s.metadata.get("synthetic", False) for s in samples),
         "is_mock": config["model"]["backend"] == "mock", "cache_hits": 0, "cache_misses": 0,
     }
@@ -94,13 +108,17 @@ def run_experiment(config, root=REPO, model=None):
     try:
         # Resolve the actual processor before a local cache lookup: library/default drift must not reuse predictions.
         if config["model"]["backend"] == "local" and model is None:
+            import torch
+            torch.set_num_threads(4)
             model = create_model(config["model"], config.get("inference", {}))
+        if input_audit and model.preprocessing["fingerprint"] != input_audit["processor"]["fingerprint"]:
+            raise ValueError("Runtime processor differs from input audit")
         if getattr(model, "load_report", None) is not None:
             manifest["model_load"] = model.load_report
             write_json(output / "manifest.json", manifest)
         with (output / "predictions.jsonl").open("w", encoding="utf-8") as handle:
             for sample in samples:
-                images = sample.load_images()
+                images, study = prepare_study_images(sample.load_images(), config.get("study_preprocessing"))
                 prompt = build_prompt(sample.question, sample.choices, config["protocol"])
                 prompt_hash = text_sha256(prompt)
                 for condition in conditions:
@@ -109,6 +127,8 @@ def run_experiment(config, root=REPO, model=None):
                     request = ModelRequest(sample.sample_id, prompt, transformed, len(sample.choices), sample_seed)
                     identity = request_identity(request, config["model"], config.get("inference", {}), code_hash,
                                                 protocol, getattr(model, "preprocessing", None))
+                    if study:
+                        identity["study_preprocessing"] = config["study_preprocessing"]
                     cache_key = digest(identity)
                     cache_file = cache / f"{cache_key}.json"
                     if cache_file.exists():
@@ -135,15 +155,29 @@ def run_experiment(config, root=REPO, model=None):
                         write_prediction_cache(cache_file, identity, raw, telemetry)
                         manifest["cache_misses"] += 1
                     parsed = parse_prediction(raw, len(sample.choices), config["protocol"])
+                    if input_audit:
+                        expected = input_audit["cases"][sample.sample_id][condition["name"]]
+                        actual_hashes = [im["pixel_values_sha256"] for im in telemetry["images"]]
+                        if (identity["images"] != expected["image_hashes"] or actual_hashes != expected["tensor_hashes"]
+                                or telemetry["image_grid_thw"] != expected["grids"]):
+                            raise ValueError("Runtime input differs from audited processor tensors")
                     record = {"sample_id": sample.sample_id, "condition": condition["name"],
                               "group_id": sample.metadata.get("key_image"), "answer_index": sample.answer_index,
                               **{("predicted_index" if k == "answer_index" else k): v for k, v in asdict(parsed).items()},
                               "correct": parsed.valid and not parsed.abstain and parsed.answer_index == sample.answer_index,
                               "raw": raw, "cache_key": cache_key, "perturbation": perturbation,
-                              "telemetry": telemetry, **protocol, "prompt_sha256": prompt_hash}
+                              "telemetry": telemetry, **protocol, "prompt_sha256": prompt_hash,
+                              "study_preprocessing": study}
                     handle.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                     handle.flush()
                     predictions.append(record)
+                    if selection:
+                        print(json.dumps({"sample_id": sample.sample_id, "condition": condition["name"],
+                                          "completed": len(predictions), "total": len(samples) * len(conditions)}), flush=True)
+        expected_pairs = {(s.sample_id, c["name"]) for s in samples for c in conditions}
+        if len(predictions) != len(expected_pairs) or {(r["sample_id"], r["condition"]) for r in predictions} != expected_pairs:
+            raise ValueError("Incomplete paired condition matrix")
+        manifest["pairing_complete"] = True
         grouped = {c["name"]: [r for r in predictions if r["condition"] == c["name"]] for c in conditions}
         evaluation = config.get("evaluation", {})
         metrics = {name: compute_metrics(rows, evaluation.get("ece_bins", 10)) for name, rows in grouped.items()}

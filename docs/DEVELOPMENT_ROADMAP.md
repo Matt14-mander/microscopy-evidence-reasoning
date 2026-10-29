@@ -14,11 +14,11 @@ P0-3 已于 2026-10-29 完成：显式 processor/像素参数冻结、网格与�
 
 | 位置 | 当前行为 | 下一步需要 |
 | --- | --- | --- |
-| `src/data/prepare.py` | 导出并做 RGB 转换；已完成审计、分组锁定与分区选择 | 进一步保留研究所需 metadata、正式 pilot 选择 |
-| `src/models/local.py` | 已冻结 processor/像素参数，记录实际网格、视觉 token、耗时/显存，验证多图顺序 | 完整输入预览与全量资源策略 |
+| `src/data/prepare.py` / `pilot.py` | 已完成审计、分区锁定与 50 题分层清单（覆盖 45 个组） | 正式测试实验 registry |
+| `src/models/local.py` | 已冻结 processor/像素参数，记录实际网格、视觉 token、耗时/显存，验证多图顺序与 pilot 张量审计一致性 | 锁定测试最大图数资源策略 |
 | `src/models/base.py` / `protocols.py` | 已实现 forced_choice / allow_abstain v1.0、prompt hash、协议解析与缓存隔离 | 在固定 pilot 清单中运行双协议 |
-| `src/perturbations/transforms.py` | 固定像素模糊、降采样、依赖区域的遮挡 | 相对强度、实际输入预览；主实验不依赖区域标注 |
-| `experiments/run.py` | 已保存本地计时/显存和失败定位；一个 seed、取前 N 条、首个异常终止 | 分组样本选择、分开的随机种子、失败恢复与更多 reference 比较 |
+| `src/perturbations/transforms.py` / `study.py` | 已实现公共研究尺寸、相对模糊强度、实际张量预览与全量退化审计 | 正式强度扩展与测试阶段协议冻结 |
+| `experiments/run.py` | 已按固定 ID 清单运行完整矩阵并核对审计张量；一个 seed、首个异常终止 | 分开的随机种子、失败恢复与更多 reference 比较 |
 | `src/evaluation/metrics.py` | 基本 accuracy、弃答、ECE/Brier | 作答转移、高信心错误、risk–coverage、分组结果 |
 | `src/evaluation/report.py` | 一张准确率/覆盖率图 | 配对差值图、退化趋势图、校准图和报告审计 |
 
@@ -101,4 +101,4 @@ P0-1 如果需要量化，先验证对应库在当前操作系统、GPU 驱动�
 
 “脚本跑完”不足以视为实验完成。应同时满足：样本/条件清单完整、模型与协议版本可定位、数据 split 一致、原始输出与错误状态存在、指标分母正确、图表有样本数和来源、结论不超过证据范围。
 
-P0-1/P0-2/P0-3/P0-4 已完成。P0-4 的本机 24 次双协议配对调用与 24 次缓存重放通过，49 项离线测试通过，见 [验收报告](reports/p0-4-2026-10-29.md)。下一次实际开发推进 **P0-5 固定样本清单与 P0-6 输入预览/退化检查**，再进行约 50 开发题的四条件 pilot。
+P0-1 至 P0-6 已完成。P0-3/P0-4 已先提交为 `c2a2350`；P0-5/P0-6 固定 50 道开发题和四条件，全部 90 个图片引用完成实际输入审计，200 次强制作答真实调用全部有效，55 项离线测试通过，见 [验收报告](reports/p0-5-p0-6-2026-10-29.md)。下一次推进 **P0-7 开发 pilot 主表、配对差值图与 proposal 可行性报告**；完整 allow_abstain pilot 尚未运行，测试集继续封存。

@@ -1,0 +1,4 @@
+{
+  "extends": ["pilot.json", "../protocols/allow_abstain.json"],
+  "output_dir": "outputs/pilot50-v1/allow_abstain"
+}

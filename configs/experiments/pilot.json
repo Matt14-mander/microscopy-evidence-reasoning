@@ -1,0 +1,23 @@
+{
+  "extends": ["../base.json", "../models/local_4070.json", "../protocols/forced_choice.json"],
+  "data": {
+    "path": "data/microvqa/samples.jsonl",
+    "split_manifest": "configs/splits/microvqa-v1.json",
+    "partition": "dev",
+    "sample_manifest": "configs/samples/pilot50-v1.json",
+    "limit": null
+  },
+  "study_preprocessing": {
+    "kind": "qwen_grid_rgb_v1", "min_pixels": 50176, "max_pixels": 200704,
+    "factor": 28, "resample": "bicubic"
+  },
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "text_only", "kind": "text_only"},
+    {"name": "blur", "kind": "blur", "radius_fraction": 0.02},
+    {"name": "resolution", "kind": "resolution", "scale": 0.25}
+  ],
+  "input_audit": "outputs/input-audit/pilot50-v1/audit.json",
+  "output_dir": "outputs/pilot50-v1/forced_choice",
+  "cache_dir": "outputs/cache/pilot50-v1"
+}

@@ -36,7 +36,8 @@ def load_config(path, seen=None):
 
 
 def validate_config(config):
-    allowed = {"seed", "data", "model", "inference", "conditions", "output_dir", "cache_dir", "evaluation", "protocol"}
+    allowed = {"seed", "data", "model", "inference", "conditions", "output_dir", "cache_dir", "evaluation", "protocol",
+               "study_preprocessing", "input_audit"}
     if set(config) - allowed:
         raise ValueError(f"Unknown configuration keys: {set(config) - allowed}")
     from src.models.protocols import resolve_protocol
@@ -90,10 +91,18 @@ def validate_config(config):
         raise ValueError("Unknown model parameters (store credentials only in environment variables)")
     if backend != "mock" and not config["model"].get("name"):
         raise ValueError("A model name/path is required")
-    if set(config["data"]) - {"path", "image_root", "limit", "split_manifest", "partition"} or not config["data"].get("path"):
+    if set(config["data"]) - {"path", "image_root", "limit", "split_manifest", "partition", "sample_manifest"} or not config["data"].get("path"):
         raise ValueError("data requires path and optionally image_root/limit/split_manifest/partition")
     if ("split_manifest" in config["data"]) != ("partition" in config["data"]):
         raise ValueError("split_manifest and partition must be provided together")
+    if "sample_manifest" in config["data"]:
+        if config["data"].get("partition") != "dev" or config["data"].get("limit") is not None:
+            raise ValueError("Pilot manifest requires dev partition and forbids limit truncation")
+    if "study_preprocessing" in config:
+        from src.perturbations.study import validate_study
+        validate_study(config["study_preprocessing"], config["model"])
+        if any(c["kind"] in {"evidence_mask", "control_mask"} for c in config["conditions"]):
+            raise ValueError("Study resizing does not support original-coordinate region masks")
     inference = config.get("inference", {})
     if set(inference) - {"temperature", "max_new_tokens"}:
         raise ValueError("Unsupported inference parameter")

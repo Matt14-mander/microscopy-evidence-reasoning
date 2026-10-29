@@ -54,8 +54,10 @@ def validate_condition(condition):
         if not isinstance(fill, list) or len(fill) != 3 or any(type(x) is not int or not 0 <= x <= 255 for x in fill):
             raise ValueError("fill must contain three integer RGB values")
     if kind == "blur":
-        allowed.add("radius")
-        radius = condition.get("radius", 2.0)
+        allowed |= {"radius", "radius_fraction"}
+        if "radius" in condition and "radius_fraction" in condition:
+            raise ValueError("Choose either radius or radius_fraction")
+        radius = condition.get("radius_fraction", condition.get("radius", 2.0))
         if type(radius) not in (int, float) or not 0 < radius < float("inf"):
             raise ValueError("blur radius must be finite and positive")
     if kind == "resolution":
@@ -86,9 +88,14 @@ def apply_condition(images, regions, condition, seed):
             metadata["regions"].append({"image_index": region.image_index, "box": list(box)})
         metadata["fill"] = list(fill)
     elif kind == "blur":
-        radius = condition.get("radius", 2.0)
-        result = [image.filter(ImageFilter.GaussianBlur(radius)) for image in result]
-        metadata["radius"] = radius
+        radii = [min(im.size) * condition["radius_fraction"] if "radius_fraction" in condition
+                 else condition.get("radius", 2.0) for im in result]
+        result = [image.filter(ImageFilter.GaussianBlur(radius)) for image, radius in zip(result, radii)]
+        metadata["radii"] = radii
+        if "radius_fraction" in condition:
+            metadata["radius_fraction"] = condition["radius_fraction"]
+        else:
+            metadata["radius"] = condition.get("radius", 2.0)
     elif kind == "resolution":
         scale = condition.get("scale", 0.5)
         small_sizes = [(max(1, round(image.width * scale)), max(1, round(image.height * scale))) for image in result]

@@ -80,4 +80,4 @@ Smoke 默认从开发分区确定性选择 6 题：2 道单图、2 道多图、�
 .\scripts\python.ps1 -m pip freeze > outputs/environment-p0.lock.txt
 ```
 
-P0-3 的固定 processor、输入预算、视觉 token 和运行记录见 [预处理冻结说明](PREPROCESSING.md)。P0-4 双作答协议已完成；后续固定 P0-5 样本清单与完成 P0-6 输入预览，再扩大到约 50 开发题的四条件 pilot。不要因为 smoke 可运行就直接在锁定测试集上调参。
+P0-3 的固定 processor、输入预算、视觉 token 和运行记录见 [预处理冻结说明](PREPROCESSING.md)。P0-4 双协议和 P0-5/P0-6 的 50 题四条件开发 pilot 已完成，后者见 [复现说明](PILOT_AND_INPUT_AUDIT.md)。下一步为 P0-7 图表与可行性报告，测试集继续封存。
