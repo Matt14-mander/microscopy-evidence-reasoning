@@ -1,5 +1,6 @@
 {
   "seed": 42,
+  "protocol": {"name": "allow_abstain", "version": "1.0"},
   "data": {"path": "data/microvqa/samples.jsonl", "limit": null},
   "model": {"backend": "mock", "name": "deterministic-smoke-test"},
   "inference": {"temperature": 0, "max_new_tokens": 256},

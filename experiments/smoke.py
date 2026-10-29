@@ -16,7 +16,10 @@ from src.data.splits import select_partition
 from src.models.base import ModelRequest, build_prompt
 from src.models.local import LocalVLM
 from src.models.parsing import parse_prediction
-from src.utils import file_digest, read_json, stable_seed, write_json
+from src.models.preprocessing import tensor_digest
+from src.models.protocols import DEFAULT_PROTOCOL, resolve_protocol, text_sha256
+from src.perturbations.transforms import apply_condition, validate_condition
+from src.utils import file_digest, image_digest, read_json, stable_seed, write_json
 
 
 def choose_smoke_samples(samples, n=6, seed=42):
@@ -41,7 +44,8 @@ def choose_smoke_samples(samples, n=6, seed=42):
     return selected
 
 
-def run_smoke(model_config, data_path, split_path, output, n=6, seed=42):
+def run_smoke(model_config, data_path, split_path, output, n=6, seed=42, conditions=None, verify_image_order=False,
+              protocol_config=None):
     import torch
 
     output = Path(output)
@@ -54,6 +58,13 @@ def run_smoke(model_config, data_path, split_path, output, n=6, seed=42):
     development = select_partition(load_samples(data_path), split, "dev", data_path)
     selected = choose_smoke_samples(development, n, seed)
     config = load_config(model_config)
+    config["protocol"] = protocol_config or config.get("protocol", DEFAULT_PROTOCOL.copy())
+    protocol = resolve_protocol(config["protocol"])
+    conditions = conditions or [{"name": "baseline", "kind": "baseline"}, {"name": "text_only", "kind": "text_only"}]
+    for condition in conditions:
+        validate_condition(condition)
+    if len({c["name"] for c in conditions}) != len(conditions):
+        raise ValueError("Duplicate smoke condition names")
     validate_config(merge(load_config(Path(__file__).resolve().parents[1] / "configs/base.json"), config))
     if config["model"]["backend"] != "local":
         raise ValueError("Smoke test requires a real local model")
@@ -67,11 +78,12 @@ def run_smoke(model_config, data_path, split_path, output, n=6, seed=42):
     report = {
         "status": "running", "purpose": "infrastructure smoke; not a benchmark score",
         "started_at": datetime.now(timezone.utc).isoformat(), "partition": "dev",
-        "protocol": "existing structured JSON, allow_abstain", "split_id": split["split_id"],
+        "protocol": protocol, "split_id": split["split_id"],
         "data_sha256": file_digest(data_path), "python": platform.python_version(),
         "platform": platform.platform(), "gpu_driver": driver, "seed": seed, "config": config,
         "packages": {name: importlib.metadata.version(name) for name in
                      ("torch", "torchvision", "transformers", "accelerate", "bitsandbytes", "Pillow")},
+        "conditions": conditions, "verify_image_order": verify_image_order,
         "selection_rule": "seeded 2 single + 2 multi + largest image-count dev question + seeded fill",
         "selected_samples": [{"sample_id": s.sample_id, "group_id": s.metadata["key_image"],
                               "n_images": len(s.image_paths)} for s in selected], "cases": [],
@@ -85,23 +97,36 @@ def run_smoke(model_config, data_path, split_path, output, n=6, seed=42):
         write_json(output / "manifest.json", report)
         for sample in selected:
             images = sample.load_images()
-            prompt = build_prompt(sample.question, sample.choices)
-            for condition in ("baseline", "text_only"):
-                request = ModelRequest(sample.sample_id, prompt, tuple(images) if condition == "baseline" else (),
+            prompt = build_prompt(sample.question, sample.choices, config["protocol"])
+            for condition in conditions:
+                transformed, perturbation = apply_condition(images, sample.regions, condition, stable_seed(seed, sample.sample_id))
+                request = ModelRequest(sample.sample_id, prompt, transformed,
                                        len(sample.choices), stable_seed(seed, sample.sample_id))
-                case = {"sample_id": sample.sample_id, "condition": condition, "n_source_images": len(images)}
+                case = {"sample_id": sample.sample_id, "condition": condition["name"], "n_source_images": len(images),
+                        "source_image_hashes": [image_digest(im) for im in images], "perturbation": perturbation,
+                        **protocol, "prompt_sha256": text_sha256(prompt)}
                 started = time.perf_counter()
                 try:
                     raw = model.generate(request)
-                    parsed = parse_prediction(raw, len(sample.choices))
+                    parsed = parse_prediction(raw, len(sample.choices), config["protocol"])
                     case.update(status="ok", raw=raw, prediction=asdict(parsed), telemetry=model.last_generation)
+                    if verify_image_order:
+                        # Independently preprocess each image and compare its packed tensor with the multi-image call.
+                        checks = []
+                        for image, actual in zip(request.images, model.last_generation["images"]):
+                            single = model.processor.image_processor(images=[image], return_tensors="pt", device="cpu")
+                            checks.append(tensor_digest(single["pixel_values"]) == actual["pixel_values_sha256"]
+                                          and single["image_grid_thw"].tolist()[0] == actual["grid_thw"])
+                        case["independent_image_order_check"] = checks
+                        if len(checks) != len(request.images) or not all(checks):
+                            raise ValueError("Independent per-image tensor order check failed")
                 except Exception as error:
                     case.update(status="error", error_type=type(error).__name__, error=str(error),
-                                seconds=time.perf_counter() - started)
+                                seconds=time.perf_counter() - started, telemetry=model.last_generation)
                     torch.cuda.empty_cache()
                 report["cases"].append(case)
                 write_json(output / "manifest.json", report)
-                print(json.dumps({"sample_id": sample.sample_id, "condition": condition,
+                print(json.dumps({"sample_id": sample.sample_id, "condition": condition["name"],
                                   "status": case["status"], "valid": case.get("prediction", {}).get("valid"),
                                   "seconds": case.get("telemetry", {}).get("seconds", case.get("seconds"))}), flush=True)
         report["status"] = "complete" if all(c["status"] == "ok" for c in report["cases"]) else "failed"
@@ -129,8 +154,14 @@ def main():
     parser.add_argument("--output", required=True)
     parser.add_argument("--samples", type=int, default=6)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--conditions-config", help="JSON containing a conditions list")
+    parser.add_argument("--verify-image-order", action="store_true")
+    parser.add_argument("--protocol-config")
     args = parser.parse_args()
-    report = run_smoke(args.model_config, args.data, args.split, args.output, args.samples, args.seed)
+    conditions = read_json(args.conditions_config)["conditions"] if args.conditions_config else None
+    report = run_smoke(args.model_config, args.data, args.split, args.output, args.samples, args.seed,
+                       conditions, args.verify_image_order,
+                       load_config(args.protocol_config)["protocol"] if args.protocol_config else None)
     print(json.dumps(report["summary"], indent=2))
     if report["status"] != "complete":
         raise SystemExit(1)

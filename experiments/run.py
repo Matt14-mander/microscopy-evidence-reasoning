@@ -16,6 +16,8 @@ from src.evaluation.paired import paired_comparison
 from src.models.base import ModelRequest, build_prompt
 from src.models.factory import create_model
 from src.models.parsing import parse_prediction
+from src.models.protocols import DEFAULT_PROTOCOL, resolve_protocol, text_sha256
+from src.models.cache import request_identity, read_prediction_cache, write_prediction_cache
 from src.perturbations.transforms import apply_condition
 from src.utils import digest, file_digest, image_digest, read_json, stable_seed, write_json
 
@@ -40,7 +42,9 @@ def _path(root, value):
 
 
 def run_experiment(config, root=REPO, model=None):
+    config = merge({"protocol": DEFAULT_PROTOCOL}, config)
     validate_config(config)
+    protocol = resolve_protocol(config["protocol"])
     root = Path(root).resolve()
     seed = config.get("seed", 0)
     data_path = _path(root, config["data"]["path"])
@@ -79,6 +83,7 @@ def run_experiment(config, root=REPO, model=None):
         "dataset_source": read_json(source_path) if source_path.exists() else None,
         "split_id": split_manifest["split_id"] if split_manifest else None,
         "partition": config["data"].get("partition"),
+        "protocol": protocol,
         "contains_synthetic_data": any(s.metadata.get("synthetic", False) for s in samples),
         "is_mock": config["model"]["backend"] == "mock", "cache_hits": 0, "cache_misses": 0,
     }
@@ -87,39 +92,55 @@ def run_experiment(config, root=REPO, model=None):
     write_json(output / "config.resolved.json", config)
     predictions = []
     try:
+        # Resolve the actual processor before a local cache lookup: library/default drift must not reuse predictions.
+        if config["model"]["backend"] == "local" and model is None:
+            model = create_model(config["model"], config.get("inference", {}))
+        if getattr(model, "load_report", None) is not None:
+            manifest["model_load"] = model.load_report
+            write_json(output / "manifest.json", manifest)
         with (output / "predictions.jsonl").open("w", encoding="utf-8") as handle:
             for sample in samples:
                 images = sample.load_images()
-                prompt = build_prompt(sample.question, sample.choices)
+                prompt = build_prompt(sample.question, sample.choices, config["protocol"])
+                prompt_hash = text_sha256(prompt)
                 for condition in conditions:
                     sample_seed = stable_seed(seed, sample.sample_id)
                     transformed, perturbation = apply_condition(images, sample.regions, condition, sample_seed)
                     request = ModelRequest(sample.sample_id, prompt, transformed, len(sample.choices), sample_seed)
-                    identity = {"code": code_hash, "model": config["model"], "inference": config.get("inference", {}),
-                                "seed": sample_seed, "sample_id": sample.sample_id, "prompt": prompt,
-                                "images": [image_digest(im) for im in transformed]}
+                    identity = request_identity(request, config["model"], config.get("inference", {}), code_hash,
+                                                protocol, getattr(model, "preprocessing", None))
                     cache_key = digest(identity)
                     cache_file = cache / f"{cache_key}.json"
                     if cache_file.exists():
-                        entry = read_json(cache_file)
-                        if entry["key"] != cache_key or not isinstance(entry["raw"], str):
-                            raise ValueError(f"Corrupt prediction cache: {cache_file}")
+                        entry = read_prediction_cache(cache_file, identity)
                         raw = entry["raw"]
+                        telemetry = entry.get("telemetry")
                         manifest["cache_hits"] += 1
                     else:
                         if model is None:
                             model = create_model(config["model"], config.get("inference", {}))
-                        raw = model.generate(request)
+                        try:
+                            raw = model.generate(request)
+                        except Exception as error:
+                            write_json(output / "failure.json", {
+                                "sample_id": sample.sample_id, "condition": condition["name"],
+                                "error_type": type(error).__name__, "error": str(error),
+                                "telemetry": getattr(model, "last_generation", None),
+                                "protocol": protocol, "prompt_sha256": prompt_hash,
+                            })
+                            raise
+                        telemetry = getattr(model, "last_generation", None)
                         if not isinstance(raw, str):
                             raise TypeError("Model.generate must return a string")
-                        write_json(cache_file, {"key": cache_key, "raw": raw})
+                        write_prediction_cache(cache_file, identity, raw, telemetry)
                         manifest["cache_misses"] += 1
-                    parsed = parse_prediction(raw, len(sample.choices))
+                    parsed = parse_prediction(raw, len(sample.choices), config["protocol"])
                     record = {"sample_id": sample.sample_id, "condition": condition["name"],
                               "group_id": sample.metadata.get("key_image"), "answer_index": sample.answer_index,
                               **{("predicted_index" if k == "answer_index" else k): v for k, v in asdict(parsed).items()},
                               "correct": parsed.valid and not parsed.abstain and parsed.answer_index == sample.answer_index,
-                              "raw": raw, "cache_key": cache_key, "perturbation": perturbation}
+                              "raw": raw, "cache_key": cache_key, "perturbation": perturbation,
+                              "telemetry": telemetry, **protocol, "prompt_sha256": prompt_hash}
                     handle.write(json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n")
                     handle.flush()
                     predictions.append(record)
@@ -147,6 +168,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", required=True)
     parser.add_argument("--model-config", help="Optional model JSON overlay")
+    parser.add_argument("--protocol-config", help="Versioned answer protocol JSON overlay")
     parser.add_argument("--output-dir")
     parser.add_argument("--data-path")
     parser.add_argument("--limit", type=int)
@@ -155,6 +177,8 @@ def main():
     config = load_config(args.config)
     if args.model_config:
         config = merge(config, load_config(args.model_config))
+    if args.protocol_config:
+        config = merge(config, load_config(args.protocol_config))
     if args.output_dir:
         config["output_dir"] = args.output_dir
     if args.data_path:

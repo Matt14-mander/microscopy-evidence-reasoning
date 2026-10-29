@@ -36,9 +36,11 @@ def load_config(path, seen=None):
 
 
 def validate_config(config):
-    allowed = {"seed", "data", "model", "inference", "conditions", "output_dir", "cache_dir", "evaluation"}
+    allowed = {"seed", "data", "model", "inference", "conditions", "output_dir", "cache_dir", "evaluation", "protocol"}
     if set(config) - allowed:
         raise ValueError(f"Unknown configuration keys: {set(config) - allowed}")
+    from src.models.protocols import resolve_protocol
+    resolve_protocol(config.get("protocol"))
     for key in ("data", "model", "conditions", "output_dir", "cache_dir"):
         if key not in config:
             raise ValueError(f"Missing configuration key: {key}")
@@ -63,7 +65,7 @@ def validate_config(config):
                 raise ValueError(f"{key} must be boolean")
     if backend == "local":
         model_allowed |= {"revision", "device_map", "dtype", "quantization", "min_pixels", "max_pixels",
-                          "attn_implementation", "local_files_only"}
+                          "attn_implementation", "local_files_only", "processor"}
         model = config["model"]
         if model.get("dtype", "auto") not in {"auto", "float16", "bfloat16", "float32"}:
             raise ValueError("Unsupported local model dtype")
@@ -76,6 +78,14 @@ def validate_config(config):
                 raise ValueError(f"{key} must be a positive integer")
         if model.get("min_pixels", 0) > model.get("max_pixels", float("inf")):
             raise ValueError("min_pixels cannot exceed max_pixels")
+        if "processor" in model:
+            from src.models.preprocessing import validate_processor_config
+            validate_processor_config(model["processor"])
+            if not all(key in model for key in ("min_pixels", "max_pixels", "revision")):
+                raise ValueError("Frozen preprocessing requires pixel bounds and model revision")
+            revision = model["revision"]
+            if not isinstance(revision, str) or len(revision) != 40 or any(c not in "0123456789abcdef" for c in revision):
+                raise ValueError("Frozen preprocessing requires a pinned 40-character revision")
     if set(config["model"]) - model_allowed:
         raise ValueError("Unknown model parameters (store credentials only in environment variables)")
     if backend != "mock" and not config["model"].get("name"):

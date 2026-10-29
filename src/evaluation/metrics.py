@@ -18,6 +18,8 @@ def compute_metrics(records, bins=10):
         "coverage": len(answered) / n,
         "abstention_rate": sum(r["valid"] and r["abstain"] for r in records) / n,
         "invalid_rate": sum(not r["valid"] for r in records) / n,
+        "n_protocol_violations": sum(not r["valid"] and r.get("error_kind") == "protocol" for r in records),
+        "n_format_errors": sum(not r["valid"] and r.get("error_kind") == "format" for r in records),
         "selective_accuracy": correct / len(answered) if answered else None,
         "selective_risk": 1 - correct / len(answered) if answered else None,
         "mean_confidence": None, "ece": None, "correctness_brier": None,

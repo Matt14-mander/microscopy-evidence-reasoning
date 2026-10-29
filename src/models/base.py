@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Protocol
 
 from PIL import Image
+from src.models.protocols import render_prompt
 
 
 @dataclass(frozen=True)
@@ -21,13 +22,5 @@ class Model(Protocol):
         ...
 
 
-def build_prompt(question, choices):
-    options = "\n".join(f"{chr(65 + i)}. {choice}" for i, choice in enumerate(choices))
-    return (
-        "Answer the microscopy multiple-choice question using the provided evidence.\n"
-        "Return only a JSON object with keys answer, confidence, abstain.\n"
-        'answer: one option letter; confidence: a number in [0,1] or null.\n'
-        'If evidence is insufficient, return {"answer": null, "confidence": null, "abstain": true}.\n'
-        'Otherwise set abstain to false. Do not include explanations.\n\n'
-        f"Question: {question}\n{options}"
-    )
+def build_prompt(question, choices, protocol=None):
+    return render_prompt(question, choices, protocol)

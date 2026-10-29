@@ -76,8 +76,34 @@ class PipelineTests(unittest.TestCase):
             run_experiment(self.config, self.root, BrokenModel())
         folder = self.root / "outputs/demo"
         self.assertEqual(read_json(folder / "manifest.json")["status"], "failed")
+        self.assertEqual(read_json(folder / "failure.json")["error_type"], "RuntimeError")
         with self.assertRaises(ValueError):
             make_report(folder, tables_only=True)
+
+    def test_processor_fingerprint_and_telemetry_survive_cache(self):
+        class InstrumentedModel(SpyModel):
+            preprocessing = {"fingerprint": "processor-v1"}
+            load_report = {"processor": preprocessing}
+
+            def generate(self, request):
+                self.last_generation = {"sample_id": request.sample_id, "n_images": len(request.images),
+                                        "seconds": 1.25, "processor_fingerprint": self.preprocessing["fingerprint"]}
+                return super().generate(request)
+
+        model = InstrumentedModel()
+        first = run_experiment(self.config, self.root, model)
+        row = json.loads((first / "predictions.jsonl").read_text(encoding="utf-8").splitlines()[0])
+        self.assertEqual(row["telemetry"]["seconds"], 1.25)
+        self.config["output_dir"] = "outputs/replay"
+        second = run_experiment(self.config, self.root, InstrumentedModel())
+        self.assertEqual((first / "predictions.jsonl").read_bytes(), (second / "predictions.jsonl").read_bytes())
+        self.assertEqual(read_json(second / "manifest.json")["model_load"]["processor"]["fingerprint"], "processor-v1")
+        changed = InstrumentedModel()
+        changed.preprocessing = {"fingerprint": "processor-v2"}
+        self.config["output_dir"] = "outputs/changed_processor"
+        third = run_experiment(self.config, self.root, changed)
+        self.assertEqual(read_json(third / "manifest.json")["cache_hits"], 0)
+        self.assertEqual(len(changed.requests), 24)
 
     def test_configs_validate_and_inheritance_cycles_fail(self):
         for path in (REPO / "configs/experiments").glob("*.json"):

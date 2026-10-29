@@ -1,0 +1,2555 @@
+{
+  "scope": "P0-3 development smoke, not benchmark accuracy",
+  "status": "passed",
+  "started_at": "2026-10-29T10:48:27.027420+00:00",
+  "finished_at": "2026-10-29T10:51:09.344191+00:00",
+  "split_id": "3f3e47178ddbc3f33b548b80711ebce9a6dc80ab8b6f6ba1ee906423436f7e98",
+  "config": {
+    "model": {
+      "backend": "local",
+      "name": "Qwen/Qwen2.5-VL-3B-Instruct",
+      "revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+      "device_map": "cuda:0",
+      "dtype": "bfloat16",
+      "quantization": "nf4",
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "processor": {
+        "class": "Qwen2_5_VLProcessor",
+        "image_processor_class": "Qwen2VLImageProcessorFast",
+        "use_fast": true,
+        "parameters": {
+          "do_resize": true,
+          "resample": 3,
+          "do_rescale": true,
+          "rescale_factor": 0.00392156862745098,
+          "do_normalize": true,
+          "image_mean": [
+            0.48145466,
+            0.4578275,
+            0.40821073
+          ],
+          "image_std": [
+            0.26862954,
+            0.26130258,
+            0.27577711
+          ],
+          "do_convert_rgb": true,
+          "patch_size": 14,
+          "temporal_patch_size": 2,
+          "merge_size": 2,
+          "disable_grouping": true
+        }
+      },
+      "attn_implementation": "sdpa",
+      "local_files_only": true
+    },
+    "inference": {
+      "temperature": 0,
+      "max_new_tokens": 128
+    }
+  },
+  "model_load": {
+    "load_seconds": 16.94306350000261,
+    "model_name": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "resolved_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "torch_version": "2.6.0+cu124",
+    "cuda_runtime": "12.4",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "device_map": {
+      "": "cuda:0"
+    },
+    "dtype": "torch.bfloat16",
+    "quantization": "nf4",
+    "model_memory_bytes": 2347459920,
+    "processor": {
+      "class": "Qwen2_5_VLProcessor",
+      "image_processor_class": "Qwen2VLImageProcessorFast",
+      "tokenizer_class": "Qwen2TokenizerFast",
+      "chat_template_sha256": "4df95d05455c2a6f762616492bba63d0f9bef904ef47daabad35f5715d6d2e4e",
+      "parameters": {
+        "disable_grouping": true,
+        "do_convert_rgb": true,
+        "do_normalize": true,
+        "do_rescale": true,
+        "do_resize": true,
+        "image_mean": [
+          0.48145466,
+          0.4578275,
+          0.40821073
+        ],
+        "image_std": [
+          0.26862954,
+          0.26130258,
+          0.27577711
+        ],
+        "merge_size": 2,
+        "patch_size": 14,
+        "resample": 3,
+        "rescale_factor": 0.00392156862745098,
+        "temporal_patch_size": 2
+      },
+      "min_pixels": 50176,
+      "max_pixels": 200704,
+      "size": {
+        "shortest_edge": 50176,
+        "longest_edge": 200704
+      },
+      "patch_size": 14,
+      "merge_size": 2,
+      "versions": {
+        "transformers": "4.57.1",
+        "torch": "2.6.0+cu124",
+        "torchvision": "0.21.0+cu124",
+        "Pillow": "12.3.0"
+      },
+      "image_order": "request order, no truncation",
+      "image_device": "cpu",
+      "text_options": {
+        "padding": false,
+        "truncation": false
+      },
+      "frozen": true,
+      "fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e"
+    }
+  },
+  "selected_samples": [
+    {
+      "sample_id": "331",
+      "group_id": "f8ac21bf5b93d7882eedceeb78170c666fd3a8295aa944f153d2f8dcaaa6e5e9",
+      "n_images": 1
+    },
+    {
+      "sample_id": "346",
+      "group_id": "a37592f00fe3ed227909376d237744a055ae27cb0cfd5b29d6c54b820b886bb0",
+      "n_images": 1
+    },
+    {
+      "sample_id": "831",
+      "group_id": "df59bfa84f877b42b2b0d28c62fcdcf9cae7f080e1ffc2391d18b9f7921a6cd0",
+      "n_images": 2
+    },
+    {
+      "sample_id": "548",
+      "group_id": "662c6573cdd570ff740724ecfe2ac6ed2ccb087b0c23ac337eaaf70f4f13649c",
+      "n_images": 2
+    },
+    {
+      "sample_id": "427",
+      "group_id": "8b4273b12144596e0b5ea25314ac7951b388cc30cff5b6d1f5450d95bd5b176d",
+      "n_images": 6
+    },
+    {
+      "sample_id": "156",
+      "group_id": "c1e60759f8369a1f32a183da14c6b2042e364a42a353965ad7f294374c063034",
+      "n_images": 3
+    }
+  ],
+  "summary": {
+    "n_cases": 24,
+    "n_successful": 24,
+    "n_valid_json": 24,
+    "n_abstentions": 0,
+    "peak_allocated_bytes": 3067469312
+  },
+  "timing_by_condition": {
+    "baseline": {
+      "n_requests": 6,
+      "seconds": {
+        "median": 5.59798999999839,
+        "min": 5.090913299998647,
+        "max": 9.128169100000378
+      },
+      "preprocessing_seconds": {
+        "median": 0.0446568000024854,
+        "min": 0.012969700001121964,
+        "max": 0.30744789999880595
+      },
+      "transfer_seconds": {
+        "median": 0.002629250000609318,
+        "min": 0.0008679999991727527,
+        "max": 0.010999499998433748
+      },
+      "generation_seconds": {
+        "median": 5.549933800000872,
+        "min": 5.07604789999823,
+        "max": 8.938529100003507
+      },
+      "peak_allocated_bytes": 3067469312,
+      "peak_reserved_bytes": 3244294144
+    },
+    "text_only": {
+      "n_requests": 6,
+      "seconds": {
+        "median": 4.799537650000275,
+        "min": 3.6924308000016026,
+        "max": 9.984699700002238
+      },
+      "preprocessing_seconds": {
+        "median": 0.0021194499986449955,
+        "min": 0.0011570999995456077,
+        "max": 0.0028882000005978625
+      },
+      "transfer_seconds": {
+        "median": 0.00046005000149307307,
+        "min": 0.0003219999998691492,
+        "max": 0.0006689999972877558
+      },
+      "generation_seconds": {
+        "median": 4.7968181500018545,
+        "min": 3.687993600000482,
+        "max": 9.97910039999988
+      },
+      "peak_allocated_bytes": 2496661504,
+      "peak_reserved_bytes": 3244294144
+    },
+    "blur": {
+      "n_requests": 6,
+      "seconds": {
+        "median": 5.77506650000214,
+        "min": 3.0645253000002413,
+        "max": 7.250839500000438
+      },
+      "preprocessing_seconds": {
+        "median": 0.031003749998490093,
+        "min": 0.016361499998311047,
+        "max": 0.13735600000291015
+      },
+      "transfer_seconds": {
+        "median": 0.0024212999996962026,
+        "min": 0.0011620000004768372,
+        "max": 0.007765799997287104
+      },
+      "generation_seconds": {
+        "median": 5.670649999998204,
+        "min": 3.0393064000018057,
+        "max": 7.231821800000034
+      },
+      "peak_allocated_bytes": 3067469312,
+      "peak_reserved_bytes": 3244294144
+    },
+    "resolution": {
+      "n_requests": 6,
+      "seconds": {
+        "median": 5.263505499999155,
+        "min": 3.188230299998395,
+        "max": 5.475693299998966
+      },
+      "preprocessing_seconds": {
+        "median": 0.022327599999698577,
+        "min": 0.013526599999750033,
+        "max": 0.07739390000278945
+      },
+      "transfer_seconds": {
+        "median": 0.0015364999999292195,
+        "min": 0.0009389999977429397,
+        "max": 0.006497400001535425
+      },
+      "generation_seconds": {
+        "median": 5.241293200000655,
+        "min": 3.166486400001304,
+        "max": 5.410836900002323
+      },
+      "peak_allocated_bytes": 3067469312,
+      "peak_reserved_bytes": 3244294144
+    }
+  },
+  "checks": {
+    "dev_only": true,
+    "complete_paired_matrix": true,
+    "same_processor": true,
+    "same_visual_budget_per_question": true,
+    "independent_tensor_order": true,
+    "text_only_zero_visual_tokens": true,
+    "degradation_changes_processed_tensors": true
+  },
+  "degradation_checks": [
+    {
+      "sample_id": "156",
+      "condition": "blur",
+      "changed_processed_images": 3,
+      "n_images": 3
+    },
+    {
+      "sample_id": "156",
+      "condition": "resolution",
+      "changed_processed_images": 3,
+      "n_images": 3
+    },
+    {
+      "sample_id": "331",
+      "condition": "blur",
+      "changed_processed_images": 1,
+      "n_images": 1
+    },
+    {
+      "sample_id": "331",
+      "condition": "resolution",
+      "changed_processed_images": 1,
+      "n_images": 1
+    },
+    {
+      "sample_id": "346",
+      "condition": "blur",
+      "changed_processed_images": 1,
+      "n_images": 1
+    },
+    {
+      "sample_id": "346",
+      "condition": "resolution",
+      "changed_processed_images": 1,
+      "n_images": 1
+    },
+    {
+      "sample_id": "427",
+      "condition": "blur",
+      "changed_processed_images": 6,
+      "n_images": 6
+    },
+    {
+      "sample_id": "427",
+      "condition": "resolution",
+      "changed_processed_images": 6,
+      "n_images": 6
+    },
+    {
+      "sample_id": "548",
+      "condition": "blur",
+      "changed_processed_images": 2,
+      "n_images": 2
+    },
+    {
+      "sample_id": "548",
+      "condition": "resolution",
+      "changed_processed_images": 2,
+      "n_images": 2
+    },
+    {
+      "sample_id": "831",
+      "condition": "blur",
+      "changed_processed_images": 2,
+      "n_images": 2
+    },
+    {
+      "sample_id": "831",
+      "condition": "resolution",
+      "changed_processed_images": 2,
+      "n_images": 2
+    }
+  ],
+  "cases": [
+    {
+      "sample_id": "331",
+      "condition": "baseline",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "331",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 1,
+        "image_sizes": [
+          [
+            1500,
+            1000
+          ]
+        ],
+        "image_hashes": [
+          "768e4e755f5c0a14ad4304be10b79bd95e8ec44faf32b0bc9c421a85cc408cd3"
+        ],
+        "image_modes": [
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            26,
+            38
+          ]
+        ],
+        "input_tokens": 491,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              26,
+              38
+            ],
+            "processed_size_hw": [
+              364,
+              532
+            ],
+            "pixels": 193648,
+            "patches": 988,
+            "visual_tokens": 247,
+            "pixel_values_sha256": "c49574ca7ae971d13ef6ffd6d880ace1a4f279f72a4dbeeffdfe4b4a5e705692"
+          }
+        ],
+        "visual_tokens": 247,
+        "image_placeholder_tokens": 247,
+        "total_processed_pixels": 193648,
+        "preprocessing_seconds": 0.30744789999880595,
+        "transfer_seconds": 0.0031487000014749356,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 6.58630660000199,
+        "seconds": 7.0253249000015785,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2521384960,
+            "peak_reserved_bytes": 3185573888
+          }
+        },
+        "peak_allocated_bytes": 2521384960,
+        "peak_reserved_bytes": 3185573888
+      },
+      "independent_image_order_check": [
+        true
+      ]
+    },
+    {
+      "sample_id": "331",
+      "condition": "text_only",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "331",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 0,
+        "image_sizes": [],
+        "image_hashes": [],
+        "image_modes": [],
+        "image_grid_thw": [],
+        "input_tokens": 242,
+        "images": [],
+        "visual_tokens": 0,
+        "image_placeholder_tokens": 0,
+        "total_processed_pixels": 0,
+        "preprocessing_seconds": 0.0022131999976409134,
+        "transfer_seconds": 0.0005253000017546583,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 4.042887100000371,
+        "seconds": 4.047455600000831,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2491028992,
+            "peak_reserved_bytes": 3185573888
+          }
+        },
+        "peak_allocated_bytes": 2491028992,
+        "peak_reserved_bytes": 3185573888
+      },
+      "independent_image_order_check": []
+    },
+    {
+      "sample_id": "331",
+      "condition": "blur",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "331",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 1,
+        "image_sizes": [
+          [
+            1500,
+            1000
+          ]
+        ],
+        "image_hashes": [
+          "b6ab39a329edceca4cbc9e19a25570271ef4ab6e92d03d1468a3f404cce52e3e"
+        ],
+        "image_modes": [
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            26,
+            38
+          ]
+        ],
+        "input_tokens": 491,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              26,
+              38
+            ],
+            "processed_size_hw": [
+              364,
+              532
+            ],
+            "pixels": 193648,
+            "patches": 988,
+            "visual_tokens": 247,
+            "pixel_values_sha256": "4dd47e73a62a3d8a8e28e18c2bc072dfa8136d1a0d4edeac5b14edd18735ff43"
+          }
+        ],
+        "visual_tokens": 247,
+        "image_placeholder_tokens": 247,
+        "total_processed_pixels": 193648,
+        "preprocessing_seconds": 0.022973799997998867,
+        "transfer_seconds": 0.0011620000004768372,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 3.0393064000018057,
+        "seconds": 3.0645253000002413,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2521384960,
+            "peak_reserved_bytes": 3185573888
+          }
+        },
+        "peak_allocated_bytes": 2521384960,
+        "peak_reserved_bytes": 3185573888
+      },
+      "independent_image_order_check": [
+        true
+      ]
+    },
+    {
+      "sample_id": "331",
+      "condition": "resolution",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "331",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 1,
+        "image_sizes": [
+          [
+            1500,
+            1000
+          ]
+        ],
+        "image_hashes": [
+          "453ae7a06b51fe3a6267f6c6df1ecf4dad5c7aa99eb4c8e85f47baec4b56c53e"
+        ],
+        "image_modes": [
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            26,
+            38
+          ]
+        ],
+        "input_tokens": 491,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              26,
+              38
+            ],
+            "processed_size_hw": [
+              364,
+              532
+            ],
+            "pixels": 193648,
+            "patches": 988,
+            "visual_tokens": 247,
+            "pixel_values_sha256": "c64f49a7674e8b57720ff83cdea7bf3e2a668aba7dc8cdec80464734b7289078"
+          }
+        ],
+        "visual_tokens": 247,
+        "image_placeholder_tokens": 247,
+        "total_processed_pixels": 193648,
+        "preprocessing_seconds": 0.019431900000199676,
+        "transfer_seconds": 0.0011837999991257675,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 3.166486400001304,
+        "seconds": 3.188230299998395,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2521384960,
+            "peak_reserved_bytes": 3185573888
+          }
+        },
+        "peak_allocated_bytes": 2521384960,
+        "peak_reserved_bytes": 3185573888
+      },
+      "independent_image_order_check": [
+        true
+      ]
+    },
+    {
+      "sample_id": "346",
+      "condition": "baseline",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "346",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 1,
+        "image_sizes": [
+          [
+            1192,
+            782
+          ]
+        ],
+        "image_hashes": [
+          "a2490fa640cacb135f7902ae819b601e2c761184d516d04cd41c8181089904a8"
+        ],
+        "image_modes": [
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            24,
+            38
+          ]
+        ],
+        "input_tokens": 517,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              24,
+              38
+            ],
+            "processed_size_hw": [
+              336,
+              532
+            ],
+            "pixels": 178752,
+            "patches": 912,
+            "visual_tokens": 228,
+            "pixel_values_sha256": "5e0320c90dca36933ab4a813d4b78da92cff7b9283013c493b39b11f3bfd57e0"
+          }
+        ],
+        "visual_tokens": 228,
+        "image_placeholder_tokens": 228,
+        "total_processed_pixels": 178752,
+        "preprocessing_seconds": 0.03338830000211601,
+        "transfer_seconds": 0.0012330999998084735,
+        "generated_tokens": 32,
+        "hit_token_limit": false,
+        "generation_seconds": 5.1974747000022035,
+        "seconds": 5.2339530999997805,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2524153856,
+            "peak_reserved_bytes": 3187671040
+          }
+        },
+        "peak_allocated_bytes": 2524153856,
+        "peak_reserved_bytes": 3187671040
+      },
+      "independent_image_order_check": [
+        true
+      ]
+    },
+    {
+      "sample_id": "346",
+      "condition": "text_only",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "346",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 0,
+        "image_sizes": [],
+        "image_hashes": [],
+        "image_modes": [],
+        "image_grid_thw": [],
+        "input_tokens": 287,
+        "images": [],
+        "visual_tokens": 0,
+        "image_placeholder_tokens": 0,
+        "total_processed_pixels": 0,
+        "preprocessing_seconds": 0.0028882000005978625,
+        "transfer_seconds": 0.0006689999972877558,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 8.09754249999969,
+        "seconds": 8.102758699998958,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2496249344,
+            "peak_reserved_bytes": 3187671040
+          }
+        },
+        "peak_allocated_bytes": 2496249344,
+        "peak_reserved_bytes": 3187671040
+      },
+      "independent_image_order_check": []
+    },
+    {
+      "sample_id": "346",
+      "condition": "blur",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "346",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 1,
+        "image_sizes": [
+          [
+            1192,
+            782
+          ]
+        ],
+        "image_hashes": [
+          "0e7647ef9e6b0ecaf6770512165ad8859013c763ccba326ecc7d49d3d56df01e"
+        ],
+        "image_modes": [
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            24,
+            38
+          ]
+        ],
+        "input_tokens": 517,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              24,
+              38
+            ],
+            "processed_size_hw": [
+              336,
+              532
+            ],
+            "pixels": 178752,
+            "patches": 912,
+            "visual_tokens": 228,
+            "pixel_values_sha256": "f343b5cd18dd64fb45cff5e649c159c77715d1b79c4a0b41e7a34be7aae5ee0a"
+          }
+        ],
+        "visual_tokens": 228,
+        "image_placeholder_tokens": 228,
+        "total_processed_pixels": 178752,
+        "preprocessing_seconds": 0.02316179999979795,
+        "transfer_seconds": 0.0029853999985789414,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.1044308000018646,
+        "seconds": 5.131618599996727,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2524153856,
+            "peak_reserved_bytes": 3187671040
+          }
+        },
+        "peak_allocated_bytes": 2524153856,
+        "peak_reserved_bytes": 3187671040
+      },
+      "independent_image_order_check": [
+        true
+      ]
+    },
+    {
+      "sample_id": "346",
+      "condition": "resolution",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "346",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 1,
+        "image_sizes": [
+          [
+            1192,
+            782
+          ]
+        ],
+        "image_hashes": [
+          "c99ccab044b34d532c51a8b8d330c9aea075e1b3104f163584cae5c7ea751119"
+        ],
+        "image_modes": [
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            24,
+            38
+          ]
+        ],
+        "input_tokens": 517,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              24,
+              38
+            ],
+            "processed_size_hw": [
+              336,
+              532
+            ],
+            "pixels": 178752,
+            "patches": 912,
+            "visual_tokens": 228,
+            "pixel_values_sha256": "704d8b423440cae9bb9519437a5c74692f530c55f852cb690182ea29f385e2b5"
+          }
+        ],
+        "visual_tokens": 228,
+        "image_placeholder_tokens": 228,
+        "total_processed_pixels": 178752,
+        "preprocessing_seconds": 0.013682600001629908,
+        "transfer_seconds": 0.0009389999977429397,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.311095599998225,
+        "seconds": 5.326742400000512,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2524153856,
+            "peak_reserved_bytes": 3187671040
+          }
+        },
+        "peak_allocated_bytes": 2524153856,
+        "peak_reserved_bytes": 3187671040
+      },
+      "independent_image_order_check": [
+        true
+      ]
+    },
+    {
+      "sample_id": "831",
+      "condition": "baseline",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "831",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 2,
+        "image_sizes": [
+          [
+            582,
+            582
+          ],
+          [
+            582,
+            580
+          ]
+        ],
+        "image_hashes": [
+          "9740ac4e5db1ac07d864fd4010975d73f244c00a6e8c49eb09ee2404c44295cc",
+          "ca9377f986baa4dcc03e2cc2ac82387fb97691ceec6337d8072edb18d78d423e"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ]
+        ],
+        "input_tokens": 792,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "1ec2296f633e5ec98053ff7ee7fc1af0f00ffcc950633e31f67177e584cf4b93"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "e1ae7946614172401d3f99bf80c1242402db2574b861409a66f82034b77006f9"
+          }
+        ],
+        "visual_tokens": 496,
+        "image_placeholder_tokens": 496,
+        "total_processed_pixels": 388864,
+        "preprocessing_seconds": 0.031522100001893705,
+        "transfer_seconds": 0.0021097999997437,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.487254600000597,
+        "seconds": 5.522395699998015,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2597471744,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2597471744,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": [
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "831",
+      "condition": "text_only",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "831",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 0,
+        "image_sizes": [],
+        "image_hashes": [],
+        "image_modes": [],
+        "image_grid_thw": [],
+        "input_tokens": 292,
+        "images": [],
+        "visual_tokens": 0,
+        "image_placeholder_tokens": 0,
+        "total_processed_pixels": 0,
+        "preprocessing_seconds": 0.0020256999996490777,
+        "transfer_seconds": 0.000438300001405878,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 3.687993600000482,
+        "seconds": 3.6924308000016026,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2496661504,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2496661504,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": []
+    },
+    {
+      "sample_id": "831",
+      "condition": "blur",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "831",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 2,
+        "image_sizes": [
+          [
+            582,
+            582
+          ],
+          [
+            582,
+            580
+          ]
+        ],
+        "image_hashes": [
+          "2abe191e899b433ee12cc878fbe0ca23fa1746e7aaddf393e2bf12d063e50426",
+          "b553c6077e52b94eb958b015ccd9c43b187392c1b0eae175c97665abd8075160"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ]
+        ],
+        "input_tokens": 792,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "ea26f8f82e9bf890083bf322801452708436eb482f0e7d9ab24f91d6e4f9842a"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "cec76877d4f623a99ebbf4e1c257c1329b2fc29b3bc6ca3e36da21a7454c2fe0"
+          }
+        ],
+        "visual_tokens": 496,
+        "image_placeholder_tokens": 496,
+        "total_processed_pixels": 388864,
+        "preprocessing_seconds": 0.03884569999718224,
+        "transfer_seconds": 0.0026424999996379483,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.8863602000019455,
+        "seconds": 5.930284500002017,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2597471744,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2597471744,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": [
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "831",
+      "condition": "resolution",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "831",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 2,
+        "image_sizes": [
+          [
+            582,
+            582
+          ],
+          [
+            582,
+            580
+          ]
+        ],
+        "image_hashes": [
+          "6bb7934f73260ab2da2eefbb441a97c25f77b6af1636be02526b7e3e54de144b",
+          "915b8ed13425da6b134ea541dc7449500a55cd5aedb0ae77247d192df28b6f33"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ]
+        ],
+        "input_tokens": 792,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "d00d16d1e24d53722a712f7dd0e147d31b8c4a993a5f032456b06e078aaea0e2"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "dfac7df0545149c8daa573dec98034d1d84e9b6d3f74469320e737684b7d3779"
+          }
+        ],
+        "visual_tokens": 496,
+        "image_placeholder_tokens": 496,
+        "total_processed_pixels": 388864,
+        "preprocessing_seconds": 0.02522329999919748,
+        "transfer_seconds": 0.0018892000007326715,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.171490800003085,
+        "seconds": 5.2002685999977984,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2597471744,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2597471744,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": [
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "548",
+      "condition": "baseline",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "548",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 2,
+        "image_sizes": [
+          [
+            141,
+            113
+          ],
+          [
+            141,
+            113
+          ]
+        ],
+        "image_hashes": [
+          "8a51e1ce38e2b4614d3e6198e989a761c48dd29bf949ff49d2f52d9f44b8ff16",
+          "86d78e2842997a4d1a08c3699de2c2b9af887ddc4e8099cf9e8eedd877fc1514"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            16,
+            18
+          ],
+          [
+            1,
+            16,
+            18
+          ]
+        ],
+        "input_tokens": 411,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              16,
+              18
+            ],
+            "processed_size_hw": [
+              224,
+              252
+            ],
+            "pixels": 56448,
+            "patches": 288,
+            "visual_tokens": 72,
+            "pixel_values_sha256": "0ee0cbc9386bd0c307e2b44eb122d4c6ed2bb6fec483a24c7b8d8789d979fc87"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              16,
+              18
+            ],
+            "processed_size_hw": [
+              224,
+              252
+            ],
+            "pixels": 56448,
+            "patches": 288,
+            "visual_tokens": 72,
+            "pixel_values_sha256": "54c6d9a8823c5b1947d7da480163c0b148d565b2296e4fa4ba128584eee68198"
+          }
+        ],
+        "visual_tokens": 144,
+        "image_placeholder_tokens": 144,
+        "total_processed_pixels": 112896,
+        "preprocessing_seconds": 0.012969700001121964,
+        "transfer_seconds": 0.0008679999991727527,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.07604789999823,
+        "seconds": 5.090913299998647,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2512114176,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2512114176,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": [
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "548",
+      "condition": "text_only",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "548",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 0,
+        "image_sizes": [],
+        "image_hashes": [],
+        "image_modes": [],
+        "image_grid_thw": [],
+        "input_tokens": 263,
+        "images": [],
+        "visual_tokens": 0,
+        "image_placeholder_tokens": 0,
+        "total_processed_pixels": 0,
+        "preprocessing_seconds": 0.0013537000013457146,
+        "transfer_seconds": 0.00041789999886532314,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 4.592847700001585,
+        "seconds": 4.595728700001928,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2494270464,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2494270464,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": []
+    },
+    {
+      "sample_id": "548",
+      "condition": "blur",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "548",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 2,
+        "image_sizes": [
+          [
+            141,
+            113
+          ],
+          [
+            141,
+            113
+          ]
+        ],
+        "image_hashes": [
+          "857ce2d5d298a81b851500655e2c1609f951bfac4bb8379e7f43aef1720df6dc",
+          "9dabe0b950a7b46947bb79a88b8c602a0f1c6e7c17cd3c363305b864d0f58957"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            16,
+            18
+          ],
+          [
+            1,
+            16,
+            18
+          ]
+        ],
+        "input_tokens": 411,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              16,
+              18
+            ],
+            "processed_size_hw": [
+              224,
+              252
+            ],
+            "pixels": 56448,
+            "patches": 288,
+            "visual_tokens": 72,
+            "pixel_values_sha256": "2a6bb40e74bef6fe05a7a6e399089277249799e259e9a4e028905a3568f6a189"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              16,
+              18
+            ],
+            "processed_size_hw": [
+              224,
+              252
+            ],
+            "pixels": 56448,
+            "patches": 288,
+            "visual_tokens": 72,
+            "pixel_values_sha256": "6361f153a22310bbdce4c6c9eaf643c75524f128961c9802385a06d0a8ce9aa3"
+          }
+        ],
+        "visual_tokens": 144,
+        "image_placeholder_tokens": 144,
+        "total_processed_pixels": 112896,
+        "preprocessing_seconds": 0.016361499998311047,
+        "transfer_seconds": 0.0014052999977138825,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 7.231821800000034,
+        "seconds": 7.250839500000438,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2512114176,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2512114176,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": [
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "548",
+      "condition": "resolution",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "548",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 2,
+        "image_sizes": [
+          [
+            141,
+            113
+          ],
+          [
+            141,
+            113
+          ]
+        ],
+        "image_hashes": [
+          "9f0058fffc5595842a1208bd81a78e0e638508ef1367340b6b8a300fcadda6a3",
+          "e16dfa731f9e88ad5ae0d1b31c4987126788a6f416c1f992914981aedf89738f"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            16,
+            18
+          ],
+          [
+            1,
+            16,
+            18
+          ]
+        ],
+        "input_tokens": 411,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              16,
+              18
+            ],
+            "processed_size_hw": [
+              224,
+              252
+            ],
+            "pixels": 56448,
+            "patches": 288,
+            "visual_tokens": 72,
+            "pixel_values_sha256": "33f506004b5bb248cc381b581dfcdfc59139f139b2266e384c8b6479f4d3eff2"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              16,
+              18
+            ],
+            "processed_size_hw": [
+              224,
+              252
+            ],
+            "pixels": 56448,
+            "patches": 288,
+            "visual_tokens": 72,
+            "pixel_values_sha256": "fa1a3edc84941769662a4c5313859e66c30309a963ebf2e2b1c4735dba3d6127"
+          }
+        ],
+        "visual_tokens": 144,
+        "image_placeholder_tokens": 144,
+        "total_processed_pixels": 112896,
+        "preprocessing_seconds": 0.013526599999750033,
+        "transfer_seconds": 0.0011071999979321845,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 4.409335599997576,
+        "seconds": 4.425596900000528,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2512114176,
+            "peak_reserved_bytes": 3206545408
+          }
+        },
+        "peak_allocated_bytes": 2512114176,
+        "peak_reserved_bytes": 3206545408
+      },
+      "independent_image_order_check": [
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "427",
+      "condition": "baseline",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "427",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 6,
+        "image_sizes": [
+          [
+            570,
+            570
+          ],
+          [
+            566,
+            566
+          ],
+          [
+            574,
+            568
+          ],
+          [
+            572,
+            572
+          ],
+          [
+            556,
+            564
+          ],
+          [
+            564,
+            568
+          ]
+        ],
+        "image_hashes": [
+          "23e9bc66f288c73a07570653047f379e3c0e40927a231ec1bf702eaa04452435",
+          "3c4ea820c389bfb2fe4e303d7e54251acbe130ed7242f73c9ea2d611e5864a28",
+          "319a0c22562df23096e6329fd5231dec31adb8637a18d428fef4dd94a333f7a0",
+          "10748df9f85a5adf5e620bab57657b2469944748b3ab40c6816db93f00f2648d",
+          "4380b29705f1be13e2d2a1b2bb48df822d6c046fc494c105d4803666c4da5cc0",
+          "8999a2d7a48c3579671e487e0394f9debce9dd65f94532980e47e0ee69389859"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ],
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            32,
+            30
+          ],
+          [
+            1,
+            32,
+            30
+          ]
+        ],
+        "input_tokens": 1751,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "ed48dd7d4043fd97bae31a83583fad1f4d0ed961159999183301c8d8f12174d3"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "6b62a7308c2c53b1fe3e8745afbc46c3a60db852899a599460b1744ee4cb5abd"
+          },
+          {
+            "image_index": 2,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "5204a1e2915a4eb1aeda2a7a23a634df5156b04b832afa01c2849fcdf6575cdf"
+          },
+          {
+            "image_index": 3,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "ad3ca7ddf4164f9d7b6d59b0789aa3f9abd2a2fe7eb1cbea1e6a0966eb7f2aae"
+          },
+          {
+            "image_index": 4,
+            "grid_thw": [
+              1,
+              32,
+              30
+            ],
+            "processed_size_hw": [
+              448,
+              420
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "df2fa72f12619a5e42dc0ed8407b3de5e1187e7b63d95b090ae310de7a657ebf"
+          },
+          {
+            "image_index": 5,
+            "grid_thw": [
+              1,
+              32,
+              30
+            ],
+            "processed_size_hw": [
+              448,
+              420
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "187b84bde04602997dcad654385917f933405e40e84bb0d97111acd7f2046799"
+          }
+        ],
+        "visual_tokens": 1488,
+        "image_placeholder_tokens": 1488,
+        "total_processed_pixels": 1166592,
+        "preprocessing_seconds": 0.1758023999973375,
+        "transfer_seconds": 0.010999499998433748,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 8.938529100003507,
+        "seconds": 9.128169100000378,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 3067469312,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 3067469312,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "427",
+      "condition": "text_only",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "427",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 0,
+        "image_sizes": [],
+        "image_hashes": [],
+        "image_modes": [],
+        "image_grid_thw": [],
+        "input_tokens": 251,
+        "images": [],
+        "visual_tokens": 0,
+        "image_placeholder_tokens": 0,
+        "total_processed_pixels": 0,
+        "preprocessing_seconds": 0.002540699999372009,
+        "transfer_seconds": 0.00048180000158026814,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 9.97910039999988,
+        "seconds": 9.984699700002238,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2491918848,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 2491918848,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": []
+    },
+    {
+      "sample_id": "427",
+      "condition": "blur",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "427",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 6,
+        "image_sizes": [
+          [
+            570,
+            570
+          ],
+          [
+            566,
+            566
+          ],
+          [
+            574,
+            568
+          ],
+          [
+            572,
+            572
+          ],
+          [
+            556,
+            564
+          ],
+          [
+            564,
+            568
+          ]
+        ],
+        "image_hashes": [
+          "694e834ed0c81eeb522f91e3165b6dc9fd8d1c5e79f67d72c376b1bfa872c841",
+          "7f5700a53e07edd2434143aef243f1dced85e4604d4f2b9652ba62f1fc081a81",
+          "8a7eee7b643e5f0a371685eb2e529bbecb95818f3e48e4ea7bdbc704f1995416",
+          "49b270ed0007ebb8cdbb6f637ec1ba1d9f37dfab7458ce4e018fe9fbd272ca62",
+          "4f4c0fbca9a4afc8ac16d600bf377f4aaefe49c76b91c365503287a72e2f9ae5",
+          "08adad39f29f7e2b0cbbf2a0ec20e918939fa5f4514436f2b8811ce9693b2c00"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ],
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            32,
+            30
+          ],
+          [
+            1,
+            32,
+            30
+          ]
+        ],
+        "input_tokens": 1751,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "1d5083f8bfa7b1d5debbff2614fcf024cc8dbca66bc3e1a7c57d3885bcd4d655"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "52ab54d143d2a93e4629b2bf9a7f30f381b76ae8ba9c619079b75dcfce224cef"
+          },
+          {
+            "image_index": 2,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "f45a8e3560e29dbe50d44508e5b1194766d86ca040df80474301c0453c70c9ec"
+          },
+          {
+            "image_index": 3,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "f2bbc698cc619304054090a508c1410547215e2ade1554d9d47beebd26bfbb68"
+          },
+          {
+            "image_index": 4,
+            "grid_thw": [
+              1,
+              32,
+              30
+            ],
+            "processed_size_hw": [
+              448,
+              420
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "56728e15c8c4d1e76df4d6aff664eff195af94ea8f7215b56d19bde1576d2058"
+          },
+          {
+            "image_index": 5,
+            "grid_thw": [
+              1,
+              32,
+              30
+            ],
+            "processed_size_hw": [
+              448,
+              420
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "414d8bac9bc55edd8e3ece57f4f7b78f6d4b7a1baaf41039d8a11679407969f0"
+          }
+        ],
+        "visual_tokens": 1488,
+        "image_placeholder_tokens": 1488,
+        "total_processed_pixels": 1166592,
+        "preprocessing_seconds": 0.13735600000291015,
+        "transfer_seconds": 0.007765799997287104,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.768483099996956,
+        "seconds": 5.916065200002777,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 3067469312,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 3067469312,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "427",
+      "condition": "resolution",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "427",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 6,
+        "image_sizes": [
+          [
+            570,
+            570
+          ],
+          [
+            566,
+            566
+          ],
+          [
+            574,
+            568
+          ],
+          [
+            572,
+            572
+          ],
+          [
+            556,
+            564
+          ],
+          [
+            564,
+            568
+          ]
+        ],
+        "image_hashes": [
+          "d4a383721ed66ad5c8a6b4af81194003e020442c538c42b42b3d3e6e374b6229",
+          "86b59105e2616de5ccc70fe9e7aa0fc9616bc32f3f76b1a58fad00faaa653a12",
+          "03282426cd51b974480315d12fe0c8d3d7f30dc14b50722f0505d83a8d5f323b",
+          "b1b71e4aff6792585674a90b16054a4e2199cb9e70d3284efc609761efbbd5e4",
+          "e3509d4c9d57fe65c383ac7acf3b554d67ad531100d34224dfab00007be5384c",
+          "5eed78e74fcab61b4de4e1975d14685724e4af6070ad03086032774ffbc78c62"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ],
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            32,
+            30
+          ],
+          [
+            1,
+            32,
+            30
+          ]
+        ],
+        "input_tokens": 1751,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "e5dfac4c5e596b0dbc9e501b1b92331599a84a7bcbcfe5a808c67c24de4eef2f"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "08345c2dd9bee3a4860cf2445a71a3f2b20d84caaf02ca33fec466f12b236371"
+          },
+          {
+            "image_index": 2,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "ebca7c58ced3350a8f9ac2b3a9d4f088e26d2df31e97e1dd5aa22684794f84c3"
+          },
+          {
+            "image_index": 3,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "5c9976e2c9b6f5f971a23197dbbe5fc46fb91b042f2cd4371a5ef4667e61dd2a"
+          },
+          {
+            "image_index": 4,
+            "grid_thw": [
+              1,
+              32,
+              30
+            ],
+            "processed_size_hw": [
+              448,
+              420
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "ef2de91d20c4b4891fd78d4f40e5f2b31d85822e94965f515d7f3f63ab716d7e"
+          },
+          {
+            "image_index": 5,
+            "grid_thw": [
+              1,
+              32,
+              30
+            ],
+            "processed_size_hw": [
+              448,
+              420
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "6f7a3eeecfdfbe54cccdcf4b0feb1b8da567a2f0e06f5efd0c8c1c05f09a64a0"
+          }
+        ],
+        "visual_tokens": 1488,
+        "image_placeholder_tokens": 1488,
+        "total_processed_pixels": 1166592,
+        "preprocessing_seconds": 0.07739390000278945,
+        "transfer_seconds": 0.006497400001535425,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.381587600000785,
+        "seconds": 5.46713009999803,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 3067469312,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 3067469312,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "156",
+      "condition": "baseline",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "156",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 3,
+        "image_sizes": [
+          [
+            1426,
+            1426
+          ],
+          [
+            1441,
+            1410
+          ],
+          [
+            1450,
+            1389
+          ]
+        ],
+        "image_hashes": [
+          "7e0208905017b857fb4e30256693f4003d1a52e3477719105a120413d8071564",
+          "96792bd06886eb1669b6886cfd1440b8c830ca8a780cdbf8284c8a3b2683430a",
+          "3d070fd1a5854dcb7bb21d6ad40a3e6ef3646d93f712639c76c0252a0700c0ac"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ]
+        ],
+        "input_tokens": 969,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "f1f1a7b6b04fdef4401880688588b0391da26d8fde8afa63258f5c748f439668"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "a9112dfb133d623e32c2f58d834465dab95e8e9e03448e4a183accbe179d4637"
+          },
+          {
+            "image_index": 2,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "954db3eda0e8989f5f393b5940af1e29fe072f13e50ce377df54583eb3cd056f"
+          }
+        ],
+        "visual_tokens": 736,
+        "image_placeholder_tokens": 736,
+        "total_processed_pixels": 577024,
+        "preprocessing_seconds": 0.05592530000285478,
+        "transfer_seconds": 0.0034275000034540426,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.612613000001147,
+        "seconds": 5.673584299998765,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2664960000,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 2664960000,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "156",
+      "condition": "text_only",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "156",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 0,
+        "image_sizes": [],
+        "image_hashes": [],
+        "image_modes": [],
+        "image_grid_thw": [],
+        "input_tokens": 227,
+        "images": [],
+        "visual_tokens": 0,
+        "image_placeholder_tokens": 0,
+        "total_processed_pixels": 0,
+        "preprocessing_seconds": 0.0011570999995456077,
+        "transfer_seconds": 0.0003219999998691492,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.000788600002124,
+        "seconds": 5.003346599998622,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2489546752,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 2489546752,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": []
+    },
+    {
+      "sample_id": "156",
+      "condition": "blur",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "156",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 3,
+        "image_sizes": [
+          [
+            1426,
+            1426
+          ],
+          [
+            1441,
+            1410
+          ],
+          [
+            1450,
+            1389
+          ]
+        ],
+        "image_hashes": [
+          "314d7131cbc9f653051abd7796565a0eeaf36e0a737b1c77cb712254fb1bc200",
+          "99ca57c049300cbec7265f849ff187b9927c99c75cdd97dad36cb189b67310d8",
+          "9130f9a5c11a9e51f5492ff81725d0f5521bd530804d3ab9a5c033f4628e7a7f"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ]
+        ],
+        "input_tokens": 969,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "f984bbce6b3a83a6ddd9a15a7998dc6af5ce2654622db9f8b5a0789c621165bb"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "56fe173fc3226c54d3440f926e2bc349ebbf19f29e0cb269132d03ec38dae379"
+          },
+          {
+            "image_index": 2,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "56b4d48e3a200218b1fc04a98c92018e9f5f0bcea4357a4109dd980308750866"
+          }
+        ],
+        "visual_tokens": 736,
+        "image_placeholder_tokens": 736,
+        "total_processed_pixels": 577024,
+        "preprocessing_seconds": 0.056917300000350224,
+        "transfer_seconds": 0.002200099999754457,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.572816899999452,
+        "seconds": 5.634067800001503,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2664960000,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 2664960000,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "sample_id": "156",
+      "condition": "resolution",
+      "telemetry": {
+        "status": "ok",
+        "stage": "complete",
+        "sample_id": "156",
+        "processor_fingerprint": "f642d39431063c430bbea471f06aa25c66face8d969d7d8132b30f52c2c2b75e",
+        "n_images": 3,
+        "image_sizes": [
+          [
+            1426,
+            1426
+          ],
+          [
+            1441,
+            1410
+          ],
+          [
+            1450,
+            1389
+          ]
+        ],
+        "image_hashes": [
+          "609de230ec40056518bfb27ea45218ef179952d6d67bd81af5c301b563e2e593",
+          "f99e4363b09c62d18bcbb422950e37e3145ad773e341a11f71b851a1ef462655",
+          "5c3ed2e7f6916a5c81a90082e3bd7a4bb5d2b29c1815ce6a65701370ce76295d"
+        ],
+        "image_modes": [
+          "RGB",
+          "RGB",
+          "RGB"
+        ],
+        "image_grid_thw": [
+          [
+            1,
+            32,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ],
+          [
+            1,
+            30,
+            32
+          ]
+        ],
+        "input_tokens": 969,
+        "images": [
+          {
+            "image_index": 0,
+            "grid_thw": [
+              1,
+              32,
+              32
+            ],
+            "processed_size_hw": [
+              448,
+              448
+            ],
+            "pixels": 200704,
+            "patches": 1024,
+            "visual_tokens": 256,
+            "pixel_values_sha256": "dd24aef5aeebb982f5f7757dd81b4acfbe6052daa0e2a7f06699d499e7f2bc8c"
+          },
+          {
+            "image_index": 1,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "a0f44c7c4acb36c47d196708b314bd412174c88db559b9ef4549e3a05baa54cd"
+          },
+          {
+            "image_index": 2,
+            "grid_thw": [
+              1,
+              30,
+              32
+            ],
+            "processed_size_hw": [
+              420,
+              448
+            ],
+            "pixels": 188160,
+            "patches": 960,
+            "visual_tokens": 240,
+            "pixel_values_sha256": "d5d8f78dddfa0f1a0e6dc7a7b7949caff4dbaddc6b80e440daa2d491ca31f4d7"
+          }
+        ],
+        "visual_tokens": 736,
+        "image_placeholder_tokens": 736,
+        "total_processed_pixels": 577024,
+        "preprocessing_seconds": 0.06151820000013686,
+        "transfer_seconds": 0.002274599999509519,
+        "generated_tokens": 31,
+        "hit_token_limit": false,
+        "generation_seconds": 5.410836900002323,
+        "seconds": 5.475693299998966,
+        "cuda_memory_by_device": {
+          "0": {
+            "peak_allocated_bytes": 2664960000,
+            "peak_reserved_bytes": 3244294144
+          }
+        },
+        "peak_allocated_bytes": 2664960000,
+        "peak_reserved_bytes": 3244294144
+      },
+      "independent_image_order_check": [
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "artifacts": {
+    "outputs/smoke/p0-3-preprocessing-2026-10-29/manifest.json": "26b898ccec956a760dc82892e7af03b83ef4605d406535179c34afd567fc0502",
+    "configs/splits/microvqa-v1.json": "b26f9782f13f2d3c3cb8bbadb1b51057f33b2d34ea482dcc8758745b252b0232"
+  }
+}

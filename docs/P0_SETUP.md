@@ -69,7 +69,7 @@ Smoke 默认从开发分区确定性选择 6 题：2 道单图、2 道多图、�
 - 开发样本 ID、split ID、输入图片数量与顺序哈希、实际 `image_grid_thw`、输入/生成 token 数。
 - 每个请求耗时、峰值 allocated/reserved 显存、原始响应、JSON 解析结果、失败类型。
 
-`status=complete` 表示所有真实调用执行完成；`n_valid_json` 另外表示协议可解析程度。答错和弃答不是基础设施失败，但格式失败仍需要在 P0-4 阶段处理。当前 smoke 沿用已有的允许弃答提示词；强制作答协议尚未在此任务中实现。
+`status=complete` 表示所有真实调用执行完成；`n_valid_json` 另外表示协议解析后的有效程度。答错和有效弃答不是基础设施失败。Smoke 默认使用 allow_abstain@1.0，也支持 `--protocol-config`；双协议配对验证见 [协议说明](ANSWER_PROTOCOLS.md)。
 
 这是链路可行性验证，不是 benchmark 得分，也不代表所有 1042 道题都已通过显存压力测试。运行目录不能覆盖；重测需换新目录，避免混合配置结果。
 
@@ -80,4 +80,4 @@ Smoke 默认从开发分区确定性选择 6 题：2 道单图、2 道多图、�
 .\scripts\python.ps1 -m pip freeze > outputs/environment-p0.lock.txt
 ```
 
-P0-1/P0-2 验收后，下一步为 P0-3 的完整预处理审计和 P0-4 的双作答协议，然后才扩大到约 50 开发题的四条件 pilot。不要因为 smoke 可运行就直接在锁定测试集上调参。
+P0-3 的固定 processor、输入预算、视觉 token 和运行记录见 [预处理冻结说明](PREPROCESSING.md)。P0-4 双作答协议已完成；后续固定 P0-5 样本清单与完成 P0-6 输入预览，再扩大到约 50 开发题的四条件 pilot。不要因为 smoke 可运行就直接在锁定测试集上调参。

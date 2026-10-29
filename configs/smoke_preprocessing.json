@@ -1,0 +1,8 @@
+{
+  "conditions": [
+    {"name": "baseline", "kind": "baseline"},
+    {"name": "text_only", "kind": "text_only"},
+    {"name": "blur", "kind": "blur", "radius": 4.0},
+    {"name": "resolution", "kind": "resolution", "scale": 0.25}
+  ]
+}
